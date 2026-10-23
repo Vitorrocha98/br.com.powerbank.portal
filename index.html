@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f4ef">
+  <meta name="description" content="Energia para seguir. Conheça o power bank em uma experiência de produto controlada por você.">
+  <title>POWER / 01 — Energia para seguir.</title>
+  <link rel="stylesheet" href="digital-architect.aura.build/assets/css2_19fd9cc6b396.css">
+  <style>
+    /* Foundations inherited from design_system.html. */
+    :root {
+      --paper: #f4f4ef;
+      --ink: #171714;
+      --line: rgba(23, 23, 20, .16);
+      --acid: #dfff00;
+      --mist: #b7b7ae;
+      --muted: #64645c;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+      --gutter: clamp(24px, 4vw, 64px);
+      --mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { background: var(--paper); scroll-behavior: auto; }
+    body { margin: 0; color: var(--ink); font-family: Inter, sans-serif; -webkit-font-smoothing: antialiased; }
+    button, a, input { -webkit-tap-highlight-color: transparent; }
+    button, input { font: inherit; }
+    button, a { touch-action: manipulation; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    button { color: inherit; }
+    ::selection { background: var(--acid); color: var(--ink); }
+    :focus-visible { outline: 2px solid var(--ink); outline-offset: 6px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .skip-link { position: fixed; top: 12px; left: 24px; z-index: 100; padding: 16px; background: var(--acid); transform: translateY(-180%); }
+    .skip-link:focus { transform: none; }
+    .mono { font: 10px/1.5 var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+    .icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; flex: 0 0 auto; }
+    .experience { position: relative; }
+    .experience.is-scrollable { height: 500svh; }
+    .hero { position: sticky; top: 0; height: 100svh; min-height: 680px; width: 100%; display: grid; grid-template-rows: 88px 1fr 100px; isolation: isolate; overflow: hidden; background: var(--paper); }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at center, #fff9, transparent 75%); }
+    .site-header { margin-inline: var(--gutter); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 24px; position: relative; z-index: 5; }
+    .identity { display: inline-flex; align-items: center; gap: 12px; }
+    .identity-mark { width: 30px; height: 30px; display: grid; place-items: center; background: var(--ink); color: var(--acid); }
+    .identity-word { font-weight: 600; font-size: 15px; letter-spacing: -.045em; }
+    .identity-word span { font-weight: 400; color: var(--muted); margin-left: 7px; }
+    .header-note { margin: 0; color: var(--muted); }
+    .header-link { display: flex; align-items: center; gap: 16px; min-height: 44px; transition: gap .45s var(--ease); }
+    .header-link:hover { gap: 23px; }
+    .hero-body { position: relative; min-height: 0; display: grid; grid-template-columns: 43% 1fr; align-items: center; padding-inline: var(--gutter); }
+    .copy { position: relative; z-index: 3; padding: 34px 0 45px; }
+    .copy::before { content: ""; position: absolute; inset: -25px -50px -25px calc(-1 * var(--gutter)); z-index: -1; pointer-events: none; background: linear-gradient(90deg, var(--paper) 12%, #f4f4efeb 65%, #f4f4ef00); }
+    .copy::before { mask-image: linear-gradient(transparent, #000 12%, #000 82%, transparent); }
+    .eyebrow { display: flex; gap: 10px; align-items: center; margin: 0 0 29px; font-size: 9px; letter-spacing: .2em; }
+    .signal { width: 6px; height: 6px; background: var(--ink); box-shadow: 0 0 0 5px var(--acid); border-radius: 50%; margin: 0 5px; }
+    h1 { margin: 0; font-size: clamp(68px, 7.6vw, 118px); font-weight: 600; text-transform: uppercase; line-height: .88; letter-spacing: -.075em; }
+    .title-line { display: block; overflow: hidden; padding: .08em .05em .1em 0; margin-bottom: -.08em; }
+    .title-word { display: block; }
+    .outline { color: transparent; -webkit-text-stroke: 1.5px rgba(23,23,20,.85); }
+    .title-period { color: var(--ink); -webkit-text-stroke: 0; }
+    .description { max-width: 305px; margin: 32px 0 27px; font-size: 14px; line-height: 1.75; color: var(--muted); }
+    .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .button { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; justify-content: space-between; gap: 26px; min-height: 54px; padding: 16px 21px; border: 1px solid var(--ink); background: transparent; font: 10px/1.4 var(--mono); letter-spacing: .09em; text-transform: uppercase; transition: background .45s var(--ease), color .45s var(--ease), transform .25s var(--ease), box-shadow .45s var(--ease); }
+    .button-primary { color: white; background: var(--ink); }
+    .button-primary::before { content: ""; position: absolute; z-index: -1; inset: -2px; background: linear-gradient(110deg, transparent 20%, #ffffff30 45%, transparent 70%); transform: translateX(-120%); transition: transform .8s var(--ease); }
+    .button-primary:hover::before { transform: translateX(120%); }
+    .button-primary:hover { box-shadow: 0 10px 25px #17171418; }
+    .button-secondary { border-color: var(--line); }
+    .button-secondary:hover { background: var(--acid); border-color: var(--acid); }
+    .button .icon { transition: transform .45s var(--ease); }
+    .button:hover .icon { transform: translate(3px, -3px); }
+    .button-secondary:hover .icon { transform: translateY(3px); }
+    .button:active { transform: translateY(2px); }
+    .media { position: absolute; z-index: 0; inset: 0; margin: 0; pointer-events: none; }
+    .media-stage { position: absolute; inset: 0; left: -5vw; width: 110vw; display: flex; align-items: center; justify-content: center; transform: translateX(5vw); }
+    /* Keep the established scale, but never fit the image narrower than the viewport. */
+    .media video { display: block; flex-shrink: 0; width: clamp(100vw, calc(100svh * 16 / 9), 110vw); aspect-ratio: 16 / 9; object-fit: contain; }
+    .media-caption { position: absolute; right: var(--gutter); bottom: 128px; display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 9px; }
+    .media-caption::before { content: ""; width: 27px; height: 1px; background: var(--muted); }
+    .product-meta { position: absolute; top: 29px; left: 49%; right: var(--gutter); display: flex; justify-content: space-between; align-items: start; gap: 20px; color: var(--muted); z-index: 2; opacity: 0; visibility: hidden; }
+    .product-meta p { margin: 0; font-size: 9px; }
+    .product-meta b { display: block; color: var(--ink); font-weight: 400; margin-top: 6px; }
+    .index-number { font-family: Inter, sans-serif; font-size: 39px; line-height: 1; font-weight: 300; letter-spacing: -.07em; color: var(--ink); }
+    .side-note { position: absolute; right: 20px; top: 50%; writing-mode: vertical-rl; font-size: 8px; color: var(--muted); }
+    .scroll-scene { position: absolute; z-index: 3; left: var(--gutter); top: 8%; max-width: 380px; visibility: hidden; opacity: 0; }
+    .scroll-scene h2 { margin: 16px 0 24px; font-size: clamp(30px, 3.8vw, 58px); line-height: 1.02; letter-spacing: -.06em; font-weight: 500; }
+    .scroll-scene p { margin: 0; }
+    .scroll-scene::before { content: ""; position: absolute; z-index: -1; inset: -24px -50px -24px calc(-1 * var(--gutter)); background: linear-gradient(90deg, var(--paper) 15%, #f4f4efd9 70%, #f4f4ef00); pointer-events: none; }
+    .scroll-scene::before { inset-block: -60px; mask-image: linear-gradient(transparent, #000 22%, #000 65%, transparent); }
+    .connection-note { max-width: 300px; }
+    .connection-note h2 { font-size: clamp(26px, 3vw, 44px); }
+    .is-complete .button-primary { background: var(--acid); color: var(--ink); border-color: var(--acid); }
+    .hero-footer { position: absolute; z-index: 4; inset-inline: 0; bottom: 0; height: 80px; padding-inline: var(--gutter); display: flex; justify-content: flex-end; align-items: center; }
+    .chapter { justify-self: end; display: flex; align-items: center; gap: 14px; }
+    .chapter-number { font-size: 28px; font-weight: 300; letter-spacing: -.055em; font-variant-numeric: tabular-nums; }
+    .chapter-label { display: block; min-width: 105px; font-size: 9px; }
+    .chapter-total { color: var(--muted); display: block; font-size: 8px; margin-top: 4px; }
+    @media (max-width: 1023px) {
+      .media-stage { left: 0; width: 100vw; transform: none !important; }
+      .media video { width: 100%; }
+    }
+    .media-status { position: absolute; left: 49%; bottom: 25%; max-width: 250px; z-index: 4; color: var(--muted); font-size: 12px; }
+    .media-status:empty { display: none; }
+    dialog { width: min(440px, calc(100% - 40px)); padding: 36px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); box-shadow: 0 35px 90px #14141238; }
+    dialog::backdrop { background: #17171470; backdrop-filter: blur(5px); }
+    dialog h2 { font-size: 36px; line-height: 1.05; font-weight: 600; letter-spacing: -.055em; margin: 24px 0 16px; }
+    dialog p { font-size: 14px; line-height: 1.7; color: var(--muted); }
+    dialog .button { width: 100%; margin-top: 14px; }
+    .static-mode .hero { position: relative; top: 0; }
+    .static-mode .hero-footer { display: none; }
+    .hero { top: min(0px, calc(100svh - 680px)); }
+    .outline { color: var(--paper); paint-order: stroke fill; -webkit-text-stroke-width: 2px; }
+    .media { mix-blend-mode: multiply; }
+    .media-stage { mix-blend-mode: normal; }
+    .media video {
+      height: auto;
+      max-height: none;
+      filter: brightness(1.09) contrast(1.025);
+      mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+    }
+    @media (min-width: 1024px) and (min-aspect-ratio: 16/9) {
+      /* Preserve the power bank's lower edge when the wider image exceeds the viewport height. */
+      .media video { transform: translateY(clamp(-40px, calc((100svh - 100vw * 9 / 16) * .2), 0px)); }
+    }
+    @media (min-width: 1800px) { h1 { font-size: 132px; } }
+    @media (max-width: 1100px) and (min-width: 768px) {
+      :root { --gutter: 32px; }
+      h1 { font-size: clamp(65px, 8vw, 87px); }
+      .hero-body { grid-template-columns: 48% 1fr; }
+      .actions { gap: 8px; }
+      .button { padding-inline: 16px; gap: 14px; }
+      .side-note { right: 10px; }
+    }
+    @media (max-width: 767px), (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+      :root { --gutter: 24px; }
+      .hero { top: min(0px, calc(100svh - 760px)); min-height: 760px; grid-template-rows: 68px 1fr 83px; }
+      .hero::before { background: radial-gradient(ellipse at 60% 70%, #fff9, transparent 70%); }
+      .header-note, .side-note, .product-meta, .media-caption { display: none; }
+      .header-link { font-size: 9px; gap: 9px; }
+      .hero-body { display: flex; flex-direction: column; align-items: stretch; padding-top: 29px; }
+      .copy { padding: 0; }
+      .copy::before { inset: -20px -24px; background: linear-gradient(var(--paper) 60%, #f4f4ef00); }
+      .eyebrow { font-size: 8px; margin-bottom: 21px; }
+      h1 { font-size: clamp(58px, 14.8vw, 94px); line-height: .87; }
+      .outline { -webkit-text-stroke-width: 1.5px; }
+      .description { font-size: 12px; line-height: 1.65; max-width: 290px; margin: 19px 0 17px; }
+      .actions { flex-wrap: nowrap; gap: 9px; }
+      .button { min-height: 48px; font-size: 9px; padding: 13px 17px; gap: 19px; }
+      .media video { position: absolute; top: 72%; transform: translateY(-72%); }
+      .hero-footer { display: none; }
+      .chapter { display: none; }
+      .scroll-scene { top: 6%; max-width: calc(100% - 48px); }
+      .scroll-scene h2 { font-size: clamp(30px, 7vw, 48px); }
+      .media-status { left: 24px; bottom: 12px; font-size: 10px; }
+    }
+    @media (max-width: 374px) {
+      :root { --gutter: 20px; }
+      h1 { font-size: 56px; }
+      .button { padding-inline: 12px; gap: 12px; }
+    }
+    @media (min-width: 768px) and (max-height: 720px) {
+      .hero { top: min(0px, calc(100svh - 570px)); min-height: 570px; grid-template-rows: 68px 1fr 80px; }
+      h1 { font-size: clamp(66px, 6.7vw, 94px); }
+      .copy { padding-block: 20px; }
+      .eyebrow { margin-bottom: 20px; }
+      .description { margin: 22px 0 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+      .experience.is-scrollable { height: auto; }
+    }
+  </style>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#hero-title">Pular para o produto</a>
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
+    <symbol id="arrow-up-right" viewBox="0 0 24 24"><path d="M5 19 19 5M5 5h14v14"/></symbol>
+    <symbol id="arrow-down" viewBox="0 0 24 24"><path d="M12 4v16m-6-6 6 6 6-6"/></symbol>
+    <symbol id="bolt" viewBox="0 0 24 24"><path d="m14 2-9 12h6l-1 8 9-12h-6l1-8Z"/></symbol>
+  </defs></svg>
+  <main>
+    <section class="experience" id="produto" aria-labelledby="hero-title">
+      <div class="hero">
+        <figure class="media" aria-label="Power bank preto com indicador de carga, conectado a um smartphone ao longo da demonstração.">
+          <div class="media-stage">
+            <video id="product-video" muted playsinline preload="auto" disablepictureinpicture poster="raw-files/frame-inicial.png" aria-label="Demonstração do power bank controlada pela rolagem">
+              <source src="raw-files/Power_bank_charging_smartphone_20260922234940.mp4" type="video/mp4">
+              Seu navegador não suporta este vídeo. O power bank é apresentado na imagem de capa.
+            </video>
+          </div>
+          <figcaption class="media-caption mono">Acabamento texturizado / Preto</figcaption>
+        </figure>
+        <header class="site-header">
+          <a class="identity" href="#produto" aria-label="POWER 01, início">
+            <span class="identity-mark"><svg class="icon" aria-hidden="true"><use href="#bolt"/></svg></span>
+            <span class="identity-word">POWER<span>/ 01</span></span>
+          </a>
+          <p class="header-note mono">Energia em movimento.</p>
+          <a class="header-link mono" href="#explorar" data-explore>Conheça o produto <svg class="icon" aria-hidden="true"><use href="#arrow-down"/></svg></a>
+        </header>
+        <div class="hero-body">
+          <div class="copy">
+            <p class="eyebrow mono"><span class="signal" aria-hidden="true"></span> Power bank / Energia portátil</p>
+            <h1 id="hero-title" tabindex="-1" aria-label="Energia para seguir.">
+              <span class="title-line" aria-hidden="true"><span class="title-word">Energia</span></span>
+              <span class="title-line" aria-hidden="true"><span class="title-word outline">para</span></span>
+              <span class="title-line" aria-hidden="true"><span class="title-word">seguir<span class="title-period">.</span></span></span>
+            </h1>
+            <p class="description">O dia não espera por uma tomada.<br>Leve a energia com você e mantenha<br>por perto o que conecta sua vida.</p>
+            <div class="actions">
+              <button class="button button-primary" type="button" id="buy" aria-haspopup="dialog">Comprar agora <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></button>
+              <a class="button button-secondary" href="#explorar" data-explore>Explorar <svg class="icon" aria-hidden="true"><use href="#arrow-down"/></svg></a>
+            </div>
+          </div>
+          <div class="product-meta mono" aria-hidden="true" inert><p>Essencial por natureza.<b>Portátil por design.</b></p><span class="index-number">01</span></div>
+          <span class="side-note mono" aria-hidden="true">Design em cada detalhe — POWER / 01</span>
+          <div class="connection-note scroll-scene" inert aria-hidden="true">
+            <p class="mono">02 / A conexão</p>
+            <h2>Por perto.<br>Para ir além.</h2>
+          </div>
+          <div class="end-note scroll-scene" inert aria-hidden="true">
+            <p class="mono">03 / Siga em frente</p>
+            <h2>Conecte.<br>Carregue. Siga.</h2>
+            <button class="button button-primary" type="button" data-buy aria-haspopup="dialog">Comprar agora <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></button>
+          </div>
+          <p class="media-status" role="status"></p>
+        </div>
+        <footer class="hero-footer" id="explorar">
+          <div class="chapter" aria-hidden="true"><span class="chapter-number">01</span><span class="mono"><span class="chapter-label">O essencial</span><span class="chapter-total">Produto / 03</span></span></div>
+        </footer>
+      </div>
+    </section>
+  </main>
+  <dialog id="purchase-dialog" aria-labelledby="purchase-title" aria-describedby="purchase-description">
+    <span class="mono">POWER / 01</span>
+    <h2 id="purchase-title">Mais energia.<br>Em breve, com você.</h2>
+    <p id="purchase-description">A compra online ainda não está disponível nesta página.</p>
+    <form method="dialog"><button class="button button-primary">Continuar explorando <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></button></form>
+  </dialog>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      'use strict';
+      // Set the real checkout URL here when the store is ready.
+      const CONFIG = { checkoutUrl: '', seekTolerance: 1 / 60 };
+      const section = document.querySelector('.experience');
+      const hero = document.querySelector('.hero');
+      const video = document.querySelector('#product-video');
+      const chapterNumber = document.querySelector('.chapter-number');
+      const chapterLabel = document.querySelector('.chapter-label');
+      const motion = matchMedia('(prefers-reduced-motion: reduce)');
+      const productMeta = document.querySelector('.product-meta');
+      const status = document.querySelector('.media-status');
+      const hasGSAP = !!(window.gsap && window.ScrollTrigger);
+      const chapters = ['O essencial', 'A conexão', 'Siga em frente'];
+      const opening = document.querySelector('.copy');
+      const header = document.querySelector('.site-header');
+      const connection = document.querySelector('.connection-note');
+      const closing = document.querySelector('.end-note');
+      let trigger, intro, scrollAnimation, duration = 0, targetTime = 0;
+      let sceneContext, sceneTimeline;
+      let seekFrame = 0, scrollFrame = 0, previousChapter = -1;
+      let failed = false;
+      const playhead = { progress: 0 };
+      video.muted = true;
+      video.pause();
+
+      // Only one seek can be in flight. Pending scroll updates are coalesced
+      // into the latest target and applied after the decoder finishes seeking.
+      function scheduleSeek() {
+        if (!seekFrame && duration && !failed) seekFrame = requestAnimationFrame(seek);
+      }
+      function seek() {
+        seekFrame = 0;
+        if (!duration || video.seeking || video.readyState < 1) return;
+        const nextTime = motion.matches ? 0 : targetTime;
+        if (Math.abs(video.currentTime - nextTime) < CONFIG.seekTolerance) return;
+        try { video.currentTime = nextTime; }
+        catch { /* A later loadeddata/progress event retries unavailable media. */ }
+      }
+      video.addEventListener('seeked', scheduleSeek);
+      video.addEventListener('loadeddata', () => {
+        video.removeAttribute('poster');
+        scheduleSeek();
+      });
+      video.addEventListener('progress', scheduleSeek);
+      video.addEventListener('play', () => video.pause());
+
+      function renderProgress(value) {
+        const progress = Math.max(0, Math.min(1, value));
+        targetTime = progress * Math.max(0, duration - .04);
+        scheduleSeek();
+        const chapter = progress < .32 ? 0 : progress < .68 ? 1 : 2;
+        if (chapter !== previousChapter) {
+          chapterNumber.textContent = `0${chapter + 1}`;
+          chapterLabel.textContent = chapters[chapter];
+          previousChapter = chapter;
+        }
+        hero.classList.toggle('is-complete', progress > .84);
+        // Visual choreography and video share the same smoothed playhead.
+        sceneTimeline?.progress(progress);
+        const animated = hasGSAP && !motion.matches && !failed;
+        setSceneAccess(opening, !animated || progress < .26);
+        setSceneAccess(header, !animated || progress < .25);
+        setSceneAccess(productMeta, animated && progress > .4 && progress < .7);
+        setSceneAccess(connection, animated && progress > .4 && progress < .7);
+        setSceneAccess(closing, animated && progress > .83);
+      }
+
+      function setSceneAccess(element, visible) {
+        if (element.inert === !visible) return;
+        // Keep keyboard focus on a visible control when its scene leaves.
+        if (!visible && element.contains(document.activeElement)) document.activeElement.blur();
+        element.inert = !visible;
+        if (visible) element.removeAttribute('aria-hidden');
+        else element.setAttribute('aria-hidden', 'true');
+      }
+
+      function createSceneTimeline() {
+        sceneContext = gsap.context(() => {
+          sceneTimeline = gsap.timeline({ paused: true, defaults: { ease: 'power2.inOut' } })
+            .to({}, { duration: 1 }, 0)
+            .to('.media-stage', { x: 0, duration: .3 }, .04)
+            .to('.copy', { y: -64, autoAlpha: 0, filter: 'blur(10px)', duration: .22 }, .04)
+            .to('.site-header', { y: -24, autoAlpha: 0, filter: 'blur(5px)', duration: .17 }, .08)
+            .fromTo('.product-meta', { y: 16, autoAlpha: 0, filter: 'blur(7px)' },
+              { y: 0, autoAlpha: 1, filter: 'blur(0px)', duration: .12 }, .38)
+            .to('.product-meta', { y: -18, autoAlpha: 0, filter: 'blur(6px)', duration: .12 }, .58)
+            .to('.media-caption', { y: -28, autoAlpha: 0, filter: 'blur(5px)', duration: .18 }, .22)
+            .to('.side-note', { y: -56, autoAlpha: 0, filter: 'blur(5px)', duration: .2 }, .24)
+            .fromTo('.connection-note', { y: 36, autoAlpha: 0, filter: 'blur(9px)' },
+              { y: 0, autoAlpha: 1, filter: 'blur(0px)', duration: .12 }, .38)
+            .to('.connection-note', { y: -36, autoAlpha: 0, filter: 'blur(9px)', duration: .12 }, .58)
+            .fromTo('.end-note', { y: 40, autoAlpha: 0, filter: 'blur(10px)' },
+              { y: 0, autoAlpha: 1, filter: 'blur(0px)', duration: .14 }, .8);
+        }, hero);
+      }
+
+      function scrollBounds() {
+        const start = section.getBoundingClientRect().top + window.scrollY;
+        return { start, distance: Math.max(1, section.offsetHeight - innerHeight) };
+      }
+      function nativeUpdate() {
+        scrollFrame = 0;
+        if (motion.matches || failed) return;
+        const bounds = scrollBounds();
+        renderProgress((scrollY - bounds.start) / bounds.distance);
+      }
+      function onNativeScroll() {
+        if (!scrollFrame) scrollFrame = requestAnimationFrame(nativeUpdate);
+      }
+
+      function setupMotion() {
+        trigger?.kill();
+        scrollAnimation?.kill();
+        intro?.revert();
+        sceneContext?.revert();
+        sceneTimeline = undefined;
+        window.removeEventListener('scroll', onNativeScroll);
+        const isStatic = motion.matches || failed;
+        section.classList.toggle('is-scrollable', !isStatic);
+        section.classList.toggle('static-mode', isStatic);
+        if (isStatic) { renderProgress(0); return; }
+        if (hasGSAP) {
+          gsap.registerPlugin(ScrollTrigger);
+          createSceneTimeline();
+          intro = gsap.context(() => {
+            gsap.timeline({ defaults: { ease: 'expo.out' } })
+              .from('.identity, .header-note, .header-link', { y: -12, opacity: 0, duration: .9 })
+              .from('.eyebrow', { y: 14, opacity: 0, duration: 1 }, .12)
+              .from('.title-word', { yPercent: 115, duration: 1.35, stagger: .12 }, .18)
+              .from('.description, .actions', { y: 18, opacity: 0, duration: 1, stagger: .1 }, .55)
+              .from('.hero-footer', { y: 10, opacity: 0, duration: 1 }, .65);
+          }, hero);
+          scrollAnimation = gsap.fromTo(playhead, { progress: 0 }, {
+            progress: 1, ease: 'none', paused: true,
+            onUpdate: () => renderProgress(playhead.progress)
+          });
+          trigger = ScrollTrigger.create({
+            trigger: section, start: 'top top', end: 'bottom bottom',
+            animation: scrollAnimation, scrub: .24, invalidateOnRefresh: true
+          });
+          ScrollTrigger.refresh();
+        } else {
+          // The experience remains operable if the CDN is unavailable.
+          window.addEventListener('scroll', onNativeScroll, { passive: true });
+          nativeUpdate();
+        }
+      }
+
+      function onMetadata() {
+        if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+        duration = video.duration;
+        renderProgress(playhead.progress);
+        if (hasGSAP) ScrollTrigger.refresh();
+        else nativeUpdate();
+      }
+      video.addEventListener('loadedmetadata', onMetadata);
+      function onVideoError() {
+        failed = true;
+        video.poster = 'raw-files/frame-inicial.png';
+        status.textContent = 'A demonstração está indisponível. Você ainda pode conhecer o produto pela imagem.';
+        setupMotion();
+      }
+      video.addEventListener('error', onVideoError);
+      video.querySelector('source').addEventListener('error', onVideoError);
+
+      function goToProgress(progress, smooth = false) {
+        if (motion.matches || failed) return;
+        const bounds = scrollBounds();
+        window.scrollTo({ top: bounds.start + bounds.distance * progress, behavior: smooth ? 'smooth' : 'instant' });
+      }
+      document.querySelectorAll('[data-explore]').forEach(link => link.addEventListener('click', event => {
+        event.preventDefault();
+        if (motion.matches || failed) { document.querySelector('#hero-title').focus({ preventScroll: true }); return; }
+        const bounds = scrollBounds();
+        const current = (scrollY - bounds.start) / bounds.distance;
+        goToProgress(current < .3 ? .38 : current < .65 ? .74 : current < .95 ? 1 : 0, true);
+      }));
+      document.querySelector('.identity').addEventListener('click', event => {
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: motion.matches ? 'instant' : 'smooth' });
+      });
+      const dialog = document.querySelector('#purchase-dialog');
+      document.querySelectorAll('#buy, [data-buy]').forEach(button => button.addEventListener('click', () => {
+        if (CONFIG.checkoutUrl) { window.location.assign(CONFIG.checkoutUrl); return; }
+        dialog.showModal();
+      }));
+      dialog.addEventListener('click', event => {
+        const rect = dialog.getBoundingClientRect();
+        if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) dialog.close();
+      });
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => hasGSAP ? ScrollTrigger.refresh() : nativeUpdate(), 150);
+      }, { passive: true });
+      motion.addEventListener('change', () => { playhead.progress = 0; setupMotion(); });
+      setupMotion();
+      if (video.readyState >= 1) onMetadata();
+      document.fonts.ready.then(() => { if (hasGSAP) ScrollTrigger.refresh(); });
+      window.addEventListener('pageshow', () => { if (hasGSAP) ScrollTrigger.refresh(); else nativeUpdate(); });
+    });
+  </script>
+</body>
+</html>

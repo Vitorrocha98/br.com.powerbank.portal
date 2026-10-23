@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f4ef">
+  <title>Architect / Living Design System</title>
+  <script src="digital-architect.aura.build/assets/resource_3fa48481346f.js"></script>
+  <script src="digital-architect.aura.build/assets/iconify-icon_d39ffc6e4c56.js"></script>
+  <link href="digital-architect.aura.build/assets/css2_19fd9cc6b396.css" rel="stylesheet">
+  <style>
+    :root{--paper:#f4f4ef;--ink:#171714;--line:rgba(23,23,20,.16);--acid:#dfff00;--ease:cubic-bezier(.16,1,.3,1);--mx:50%;--my:50%}
+    *{box-sizing:border-box} html{background:var(--ink)}
+    body{margin:0;font-family:Inter,sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden}
+    iconify-icon{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle}
+    .grain{position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.055;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E")}
+    .grid-bg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:clamp(42px,6vw,88px) clamp(42px,6vw,88px)}
+    .nav-load{opacity:0;transform:translateY(-12px);transition:.9s var(--ease)}.nav-load.loaded{opacity:1;transform:none}
+    .reveal{opacity:0;transform:translateY(36px);transition:opacity 1s var(--ease),transform 1s var(--ease)}.reveal.active{opacity:1;transform:none}
+    .delay-100{transition-delay:.1s}.delay-200{transition-delay:.2s}.delay-300{transition-delay:.3s}.delay-500{transition-delay:.5s}.delay-700{transition-delay:.7s}
+    .text-reveal-wrapper{display:inline-block;overflow:hidden;vertical-align:bottom}.text-reveal-content{display:block;opacity:0;transform:translateY(115%) rotate(2deg);transition:1.35s var(--ease)}.reveal-active .text-reveal-content{opacity:1;transform:none}
+    .outline-lettering{color:transparent;-webkit-text-stroke:1.5px rgba(23,23,20,.85);filter:drop-shadow(0 12px 22px rgba(23,23,20,.08))}
+    .hero{isolation:isolate}.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(650px circle at var(--mx) var(--my),rgba(255,255,255,.92),transparent 52%);z-index:-1;pointer-events:none}
+    .orb{position:absolute;border:1px solid rgba(23,23,20,.18);border-radius:50%;animation:orbit 18s linear infinite}.orb:before{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:var(--ink);top:12%;left:12%;box-shadow:0 0 22px 5px rgba(23,23,20,.2)}
+    @keyframes orbit{to{transform:rotate(360deg)}}
+    .image-stage{clip-path:polygon(8% 0,100% 0,100% 88%,91% 100%,0 100%,0 10%);box-shadow:0 35px 90px rgba(20,20,18,.22)}
+    .carousel-slide{position:absolute;inset:0;opacity:0;overflow:hidden;transition:opacity 1.4s ease}.carousel-slide.active{opacity:1}.carousel-slide img{transform:scale(1.04);transition:transform 9s ease}.carousel-slide.active img{transform:scale(1.14)}
+    .glass-panel{background:rgba(255,255,255,.58);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(18px);box-shadow:0 18px 50px rgba(0,0,0,.1)}
+    .magnetic{transition:transform .25s var(--ease)}
+    .beam-button{position:relative;overflow:hidden;isolation:isolate}.beam-button:before{content:"";position:absolute;inset:-2px;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.8) 45%,transparent 70%);transform:translateX(-120%);transition:transform .8s var(--ease);z-index:-1}.beam-button:hover:before{transform:translateX(120%)}
+    .glow-on-hover{transition:transform .45s var(--ease),box-shadow .45s var(--ease),background .45s}.glow-on-hover:hover{transform:translateY(-5px);box-shadow:0 25px 65px rgba(23,23,20,.16)}
+    .flashlight-card{--x:50%;--y:50%;position:relative}.flashlight-card:before{content:"";position:absolute;inset:0;opacity:0;background:radial-gradient(280px circle at var(--x) var(--y),rgba(223,255,0,.24),transparent 60%);transition:.35s;pointer-events:none}.flashlight-card:hover:before{opacity:1}
+    .marquee-container{display:flex;overflow:hidden;user-select:none}.marquee-content{display:flex;flex-shrink:0;min-width:100%;animation:scroll 28s linear infinite}.marquee-container:hover .marquee-content{animation-play-state:paused}@keyframes scroll{to{transform:translateX(-100%)}}
+    .ticker-dot{width:6px;height:6px;background:var(--acid);border-radius:50%;box-shadow:0 0 0 5px rgba(223,255,0,.12);animation:pulse 1.7s ease-in-out infinite}@keyframes pulse{50%{box-shadow:0 0 0 12px transparent}}
+    .swatch{transition:flex .7s var(--ease),filter .5s}.swatch:hover{flex:2;filter:saturate(1.3)}
+    .motion-line{stroke-dasharray:8 8;animation:dash 12s linear infinite}@keyframes dash{to{stroke-dashoffset:-180}}
+    .parallax-img{will-change:transform}.no-scrollbar::-webkit-scrollbar{display:none}
+    @media(max-width:767px){.outline-lettering{-webkit-text-stroke:1px rgba(23,23,20,.9)}.orb{opacity:.45}.marquee-content{min-width:max-content}.image-stage{min-height:48vh}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}.reveal,.text-reveal-content{opacity:1;transform:none}}
+  </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-white">
+  <div class="grain"></div>
+  <main class="max-w-[1500px] mx-auto bg-[#f4f4ef] border-x border-black/15">
+    <header class="nav-load sticky top-0 z-50 border-b border-black/15 bg-[#f4f4ef]/80 backdrop-blur-xl">
+      <nav class="h-16 px-5 md:px-8 flex items-center justify-between text-[10px] font-mono uppercase tracking-[.18em]">
+        <a href="#top" class="flex items-center gap-3 group"><span class="w-7 h-7 bg-black text-white grid place-items-center group-hover:rotate-45 transition-transform duration-500">A</span><span class="hidden sm:inline">Living System / 05</span></a>
+        <div class="hidden md:flex gap-8"><a href="#foundations" class="hover:opacity-45">Foundations</a><a href="#components" class="hover:opacity-45">Components</a><a href="#motion" class="hover:opacity-45">Motion</a></div>
+        <a href="#components" class="flex items-center gap-2">Index <span class="w-2 h-2 bg-[#dfff00] rounded-full"></span></a>
+      </nav>
+    </header>
+
+    <section id="top" class="hero grid-bg relative min-h-[calc(100vh-64px)] overflow-hidden border-b border-black/15 px-5 md:px-8 py-8 md:py-12 flex flex-col justify-between">
+      <div class="orb w-[48vw] h-[48vw] max-w-[720px] max-h-[720px] -right-[15vw] -top-[17vw]"></div>
+      <div class="orb w-[28vw] h-[28vw] left-[32%] top-[28%]" style="animation-direction:reverse;animation-duration:12s"></div>
+      <div class="relative z-10 flex justify-between items-start text-[10px] font-mono tracking-[.16em] uppercase reveal hero-meta">
+        <div><span class="block text-black/40">Coordinates</span>23°33' S / 46°38' W</div>
+        <div class="flex items-center gap-3 glass-panel px-4 py-3"><span class="ticker-dot"></span> System online</div>
+      </div>
+      <div class="relative z-10 grid md:grid-cols-12 gap-6 items-end my-auto py-12">
+        <div class="md:col-span-8 relative z-20">
+          <p class="font-mono text-[10px] uppercase tracking-[.28em] mb-5 reveal delay-100">Digital architecture / visual language</p>
+          <h1 id="hero-title" class="font-semibold tracking-[-.075em] leading-[.76] uppercase text-[clamp(4.2rem,12.8vw,12rem)]">
+            <span class="text-reveal-wrapper"><span class="text-reveal-content">Form</span></span><br>
+            <span class="text-reveal-wrapper -mt-2"><span class="text-reveal-content outline-lettering delay-200">Beyond</span></span><br>
+            <span class="text-reveal-wrapper"><span class="text-reveal-content delay-300">Surface.</span></span>
+          </h1>
+        </div>
+        <div class="md:col-span-4 md:-ml-20 md:mb-3 reveal delay-500">
+          <div class="image-stage relative h-[38vh] md:h-[58vh] bg-stone-300" id="hero-carousel">
+            <div class="carousel-slide active"><img class="parallax-img w-full h-[112%] object-cover grayscale contrast-125" data-speed=".025" src="digital-architect.aura.build/assets/c7fa69dd-d7fb-48f2-a866-ef3663_f6b789593f38.webp" alt="Arquitetura abstrata"></div>
+            <div class="carousel-slide"><img class="parallax-img w-full h-[112%] object-cover grayscale contrast-125" data-speed=".025" src="digital-architect.aura.build/assets/6c710de5-9712-4c8e-a7db-59ac54_b647957b5aa5.webp" alt="Estrutura moderna"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-white/10"></div>
+            <div class="absolute bottom-5 left-5 right-5 text-white flex justify-between font-mono text-[9px] uppercase tracking-widest"><span>Plate — 001</span><span>Adaptive matter</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="relative z-20 flex flex-col sm:flex-row sm:items-end justify-between gap-6 reveal delay-700">
+        <p class="max-w-sm text-sm leading-relaxed">Um sistema vivo para transformar estratégia em experiências precisas, táteis e memoráveis.</p>
+        <a href="#foundations" class="magnetic beam-button bg-black text-white px-6 py-4 flex items-center justify-between gap-12 text-[10px] font-mono uppercase tracking-widest">Explore o sistema <iconify-icon icon="solar:arrow-down-linear" class="text-lg"></iconify-icon></a>
+      </div>
+    </section>
+
+    <div class="marquee-container border-b border-black/15 py-4 bg-white">
+      <div class="marquee-content font-mono text-[10px] uppercase tracking-[.24em]"><span class="mx-8">Clarity through motion</span><span>✦</span><span class="mx-8">Structure becomes expression</span><span>✦</span><span class="mx-8">White is not empty</span><span>✦</span></div>
+      <div class="marquee-content font-mono text-[10px] uppercase tracking-[.24em]" aria-hidden="true"><span class="mx-8">Clarity through motion</span><span>✦</span><span class="mx-8">Structure becomes expression</span><span>✦</span><span class="mx-8">White is not empty</span><span>✦</span></div>
+    </div>
+
+    <section id="foundations" class="border-b border-black/15">
+      <div class="grid md:grid-cols-12">
+        <div class="md:col-span-3 p-6 md:p-10 border-b md:border-b-0 md:border-r border-black/15 reveal"><span class="font-mono text-[10px] tracking-widest text-black/45">01 / FOUNDATIONS</span><p class="mt-24 text-sm max-w-[15rem]">Contraste, escala e espaço constroem a voz antes de qualquer cor.</p></div>
+        <div class="md:col-span-9 p-6 md:p-12">
+          <h2 class="text-[clamp(3.5rem,9vw,9rem)] tracking-[-.065em] leading-[.86] reveal"><span class="font-semibold">TYPE</span><br><span class="outline-lettering">AS OBJECT</span></h2>
+          <div class="mt-16 divide-y divide-black/15 border-y border-black/15">
+            <div class="grid grid-cols-12 py-6 items-baseline reveal"><span class="col-span-3 font-mono text-[9px] text-black/45">DISPLAY / 144</span><strong class="col-span-9 text-5xl md:text-8xl tracking-tighter">Architectural</strong></div>
+            <div class="grid grid-cols-12 py-6 items-baseline reveal delay-100"><span class="col-span-3 font-mono text-[9px] text-black/45">HEADING / 64</span><span class="col-span-9 text-3xl md:text-6xl tracking-tight">Systems that breathe.</span></div>
+            <div class="grid grid-cols-12 py-6 items-start reveal delay-200"><span class="col-span-3 font-mono text-[9px] text-black/45">BODY / 16</span><p class="col-span-9 max-w-xl text-base leading-7">Precisão não significa rigidez. Cada elemento responde ao contexto sem abandonar ritmo, hierarquia ou intenção.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="flex h-56 md:h-72 border-t border-black/15 overflow-hidden">
+        <div class="swatch flex-1 bg-[#f4f4ef] p-5 flex flex-col justify-between"><b>Paper</b><code class="text-xs">#F4F4EF</code></div>
+        <div class="swatch flex-1 bg-white p-5 flex flex-col justify-between border-l border-black/15"><b>Pure</b><code class="text-xs">#FFFFFF</code></div>
+        <div class="swatch flex-1 bg-[#b7b7ae] p-5 flex flex-col justify-between"><b>Mist</b><code class="text-xs">#B7B7AE</code></div>
+        <div class="swatch flex-1 bg-[#dfff00] p-5 flex flex-col justify-between"><b>Signal</b><code class="text-xs">#DFFF00</code></div>
+        <div class="swatch flex-1 bg-[#171714] text-white p-5 flex flex-col justify-between"><b>Ink</b><code class="text-xs">#171714</code></div>
+      </div>
+    </section>
+
+    <section id="components" class="p-6 md:p-12 border-b border-black/15 bg-white">
+      <div class="flex justify-between items-end mb-12 reveal"><div><span class="font-mono text-[10px] tracking-widest text-black/45">02 / COMPONENTS</span><h2 class="text-5xl md:text-8xl tracking-tighter mt-3">Tactile interface.</h2></div><span class="hidden md:block font-mono text-[10px]">MOVE / HOVER / FEEL</span></div>
+      <div class="grid md:grid-cols-12 gap-4">
+        <article class="flashlight-card glow-on-hover md:col-span-7 min-h-[360px] bg-[#f4f4ef] border border-black/15 p-7 flex flex-col justify-between overflow-hidden reveal">
+          <div class="relative z-10 flex justify-between"><span class="font-mono text-[10px]">CARD / SPOTLIGHT</span><iconify-icon icon="solar:stars-minimalistic-linear" class="text-3xl"></iconify-icon></div>
+          <div class="relative z-10"><h3 class="text-4xl md:text-6xl tracking-tighter">Attention follows<br>intention.</h3><p class="mt-4 text-sm text-black/55">A luz responde ao cursor e revela a camada de sinal.</p></div>
+        </article>
+        <article class="md:col-span-5 min-h-[360px] bg-black text-white p-7 flex flex-col justify-between relative overflow-hidden reveal delay-100">
+          <div class="absolute w-64 h-64 bg-[#dfff00] rounded-full blur-[100px] opacity-25 -right-16 -top-16"></div>
+          <div class="flex justify-between relative"><span class="font-mono text-[10px]">ACTIONS / 03</span><span class="ticker-dot"></span></div>
+          <div class="space-y-3 relative"><button class="beam-button magnetic w-full bg-white text-black px-5 py-4 flex justify-between uppercase text-[10px] font-mono tracking-widest">Primary action <iconify-icon icon="solar:arrow-right-up-linear"></iconify-icon></button><button class="w-full border border-white/25 px-5 py-4 flex justify-between uppercase text-[10px] font-mono tracking-widest hover:bg-[#dfff00] hover:text-black transition-colors">Secondary <span>02</span></button><a class="inline-block text-xs border-b border-white/30 pb-1 hover:border-white" href="#motion">Inline gesture ↘</a></div>
+        </article>
+        <article class="glass-panel md:col-span-4 p-7 min-h-[260px] flex flex-col justify-between reveal"><span class="font-mono text-[10px]">STATUS / LIVE</span><div><div class="flex items-center gap-3 mb-5"><span class="ticker-dot"></span><b>All systems nominal</b></div><div class="h-1 bg-black/10"><div class="h-full bg-black w-[76%]"></div></div><div class="flex justify-between mt-2 font-mono text-[9px]"><span>LOAD</span><span>76%</span></div></div></article>
+        <article class="md:col-span-8 min-h-[260px] relative overflow-hidden reveal delay-200"><img class="w-full h-full object-cover grayscale transition duration-700 hover:grayscale-0 hover:scale-105" src="digital-architect.aura.build/assets/62cc53b7-3355-4618-b7fa-3283f6_a6d3415bc434.webp" alt="Composição arquitetônica"><div class="absolute inset-0 bg-gradient-to-r from-black/65 to-transparent"></div><div class="absolute left-7 bottom-7 text-white"><span class="font-mono text-[9px]">MEDIA / RESPONSIVE</span><h3 class="text-4xl mt-2 tracking-tight">Material study № 08</h3></div></article>
+      </div>
+    </section>
+
+    <section id="motion" class="grid md:grid-cols-2 border-b border-black/15 overflow-hidden">
+      <div class="p-6 md:p-12 border-b md:border-b-0 md:border-r border-black/15 reveal"><span class="font-mono text-[10px] text-black/45">03 / MOTION</span><h2 class="text-6xl md:text-8xl tracking-tighter mt-5">Move with<br><i class="font-light">purpose.</i></h2><p class="max-w-sm mt-10 text-sm leading-6">Aceleração rápida, pouso suave. O movimento informa hierarquia e nunca compete com o conteúdo.</p><div class="mt-12 flex gap-3"><span class="border border-black/20 rounded-full px-4 py-2 font-mono text-[9px]">1.2 SEC</span><span class="border border-black/20 rounded-full px-4 py-2 font-mono text-[9px]">EXPO OUT</span></div></div>
+      <div class="min-h-[520px] grid-bg relative grid place-items-center">
+        <svg class="absolute inset-0 w-full h-full" viewBox="0 0 700 520" preserveAspectRatio="none"><path class="motion-line" d="M-40 440 C160 440 105 80 360 145 S560 420 750 80" fill="none" stroke="rgba(23,23,20,.26)"/><circle cx="360" cy="145" r="5" fill="#171714"/></svg>
+        <div class="relative w-64 h-64 rounded-full border border-black/20 grid place-items-center animate-[spin_18s_linear_infinite]"><div class="w-44 h-44 rounded-full border border-black/20 grid place-items-center"><div class="w-20 h-20 bg-black text-white grid place-items-center rotate-45 shadow-2xl"><iconify-icon icon="solar:atom-linear" class="text-3xl -rotate-45"></iconify-icon></div></div><span class="absolute top-4 font-mono text-[9px]">ORBIT / LOOP</span></div>
+      </div>
+    </section>
+
+    <section class="relative min-h-[68vh] bg-[#171714] text-white p-6 md:p-12 flex flex-col justify-between overflow-hidden">
+      <div class="absolute inset-0 opacity-20 grid-bg"></div><div class="absolute right-0 top-0 w-1/2 h-full bg-[#dfff00] opacity-[.04] blur-3xl"></div>
+      <div class="relative flex justify-between font-mono text-[10px] uppercase tracking-widest"><span>04 / Closing principle</span><span>Version 2.6</span></div>
+      <h2 class="relative text-[clamp(4rem,12vw,11rem)] leading-[.8] tracking-[-.07em] uppercase reveal"><span class="text-reveal-wrapper"><span class="text-reveal-content">Less noise.</span></span><br><span class="text-reveal-wrapper"><span class="text-reveal-content outline-lettering delay-200" style="-webkit-text-stroke-color:rgba(255,255,255,.8)">More signal.</span></span></h2>
+      <div class="relative flex flex-col md:flex-row justify-between md:items-end gap-8"><p class="text-sm text-white/50 max-w-sm">Design is the invisible architecture behind every clear decision.</p><a href="#top" class="w-16 h-16 rounded-full border border-white/25 grid place-items-center hover:bg-[#dfff00] hover:text-black hover:rotate-45 transition-all duration-500"><iconify-icon icon="solar:arrow-up-linear" class="text-xl"></iconify-icon></a></div>
+    </section>
+    <footer class="bg-[#171714] text-white/40 border-t border-white/10 px-6 md:px-12 py-5 flex justify-between font-mono text-[9px] uppercase tracking-widest"><span>Architect / Design System</span><span>Built to evolve © 2026</span></footer>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      setTimeout(()=>document.querySelector('header')?.classList.add('loaded'),100);
+      setTimeout(()=>document.getElementById('hero-title')?.classList.add('reveal-active'),280);
+      setTimeout(()=>document.querySelectorAll('.hero-meta,.hero .reveal').forEach(el=>el.classList.add('active')),380);
+      const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('active');if(entry.target.querySelector('.text-reveal-content'))entry.target.classList.add('reveal-active')}}),{threshold:.14});
+      document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+      document.querySelectorAll('h1,h2').forEach(el=>{if(el.querySelector('.text-reveal-content'))observer.observe(el)});
+      const slides=document.querySelectorAll('.carousel-slide');let currentSlide=0;if(slides.length>1)setInterval(()=>{slides[currentSlide].classList.remove('active');currentSlide=(currentSlide+1)%slides.length;slides[currentSlide].classList.add('active')},5200);
+      document.addEventListener('pointermove',e=>{document.documentElement.style.setProperty('--mx',e.clientX+'px');document.documentElement.style.setProperty('--my',e.clientY+'px')});
+      document.querySelectorAll('.flashlight-card').forEach(card=>card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();card.style.setProperty('--x',(e.clientX-r.left)+'px');card.style.setProperty('--y',(e.clientY-r.top)+'px')}));
+      document.querySelectorAll('.magnetic').forEach(el=>{el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.08}px,${(e.clientY-r.top-r.height/2)*.12}px)`});el.addEventListener('pointerleave',()=>el.style.transform='')});
+      let ticking=false;addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(()=>{document.querySelectorAll('.parallax-img').forEach(el=>{const r=el.parentElement.getBoundingClientRect(),speed=Number(el.dataset.speed||.03);el.style.transform=`translateY(${(innerHeight/2-r.top)*speed}px) scale(1.1)`});ticking=false});ticking=true}},{passive:true});
+    });
+  </script>
+</body>
+</html>
