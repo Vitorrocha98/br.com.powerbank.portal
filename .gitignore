@@ -3,3 +3,4 @@ animations-gemini2/
 digital-architect.aura.build/
 *.txt
 *.zip
+*.cjs
