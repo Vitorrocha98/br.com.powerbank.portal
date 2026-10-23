@@ -1,0 +1,175 @@
+/* Viewport chapters. The scroll-controlled hero intentionally keeps its layout. */
+.benefits, .journey, .models, .energy {
+  height: 100svh;
+  min-height: 0;
+  padding-block: 0 20px;
+  --fold-rail: clamp(40px, 6svh, 64px);
+  --fold-gap: clamp(10px, 2svh, 24px);
+}
+.benefits, .energy { display: grid; grid-template-rows: var(--fold-rail) minmax(0, 1fr); gap: var(--fold-gap); }
+.journey, .models { display: flex; }
+.journey-inner, .models-inner { width: 100%; min-width: 0; min-height: 0; margin: 0 auto; display: grid; gap: var(--fold-gap); }
+.journey-inner { grid-template-rows: var(--fold-rail) auto minmax(0, 1fr) auto; }
+.models-inner { grid-template-rows: var(--fold-rail) auto minmax(0, 1fr) auto; }
+.benefits-rail, .journey-rail, .models-rail, .energy-rail { min-height: 0; height: 100%; }
+.benefits-grid, .journey-grid, .models-grid, .energy-content { min-height: 0; width: 100%; }
+.benefits-grid { height: 100%; grid-template-columns: .82fr 1fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
+.benefits-photo, .journey-photo { height: 100%; min-height: 0; max-height: none; aspect-ratio: auto; }
+.benefits-photo { height: min(100%, 72svh); }
+.benefits-content { padding: 0; display: flex; flex-direction: column; justify-content: center; gap: clamp(16px, 2.8svh, 30px); }
+.benefits-content > * { flex-shrink: 0; }
+.benefits-eyebrow, .benefits-description, .benefits-specs, .benefits-cta { margin: 0; }
+.benefits-title { font-size: clamp(33.12px, min(4.88vw, 8.28svh), 80.96px); line-height: 1.04; }
+.benefits-description { max-width: 44ch; font-size: clamp(13px, 1.08vw, 16px); line-height: 1.75; }
+.benefits-specs { flex-shrink: 0; gap: clamp(24px, 3vw, 48px); }
+.benefits-spec { padding-top: 16px; }
+.benefits-value { font-size: clamp(30px, 5.5svh, 52px); }
+.benefits-spec dt { margin-top: 8px; }
+.benefits-spec p { max-width: 24ch; font-size: 13px; line-height: 1.65; margin-top: 10px; }
+.benefits-cta { min-height: 44px; align-self: flex-start; flex-shrink: 0; }
+.journey-heading { padding: 0; gap: 28px; }
+.journey-title { font-size: clamp(36.8px, min(6.62vw, 9.2svh), 103.04px); line-height: 1.14; }
+.journey-intro { max-width: 36ch; font-size: 13px; line-height: 1.75; }
+.journey-grid { grid-template-columns: .95fr 1.15fr; gap: clamp(32px, 5vw, 80px); }
+.journey-photo { height: min(100%, 42svh); align-self: center; }
+.journey-usecases { min-width: 0; }
+.journey-index { margin-bottom: 18px; }
+.journey-toggle { min-height: 56px; padding-block: 14px; }
+.journey-toggle-title { font-size: clamp(23px, 2.1vw, 32px); }
+.journey-answer p { max-width: 40ch; font-size: 13px; line-height: 1.75; padding-top: 2px; padding-bottom: 18px; }
+.journey-bottom { margin: 0; padding: 12px 0 0; gap: 20px; }
+.journey-signoff { font-size: clamp(18px, 2vw, 26px); }
+.journey-buy { min-height: 44px; }
+.models-heading { padding: 0; gap: 24px; }
+.models-title { font-size: clamp(27.6px, min(4.14vw, 6.44svh), 58.88px); line-height: 1.06; }
+.models-intro { font-size: 12px; line-height: 1.6; }
+.models-grid { height: 100%; align-items: stretch; }
+.model-card { min-height: 0; padding: clamp(14px, 2svh, 24px); }
+.model-topline { min-height: 18px; }
+.model-card h3 { font-size: clamp(26px, 3vw, 38px); margin-top: 10px; }
+.model-art { flex: 1 1 0; min-height: 60px; height: 0; aspect-ratio: auto; margin: 10px 0; }
+.model-image { position: absolute; inset: 0; margin: auto; max-width: 100%; max-height: 100%; }
+.model-caption { padding-bottom: 8px; }
+.model-description { min-height: 0; margin: 10px 0; font-size: 12px; line-height: 1.5; }
+.model-price { font-size: clamp(32px, 5svh, 52px); }
+.model-price-note { margin: 6px 0 10px; }
+.model-actions { display: grid; gap: 8px; }
+.model-select, .model-details { min-height: 44px; padding-block: 12px; }
+.model-details { display: none; border: 1px solid var(--line); background: transparent; font-size: 9px; }
+.model-features { margin-top: 12px; padding-top: 10px; gap: 6px; font-size: 12px; }
+.models-footnote { padding: 0; font-size: 8px; }
+.energy { grid-template-rows: var(--fold-rail) minmax(0, 1fr) auto; }
+.energy-content { height: 100%; margin: 0 auto; padding: 0; align-items: center; gap: 32px; }
+.energy-title { font-size: clamp(40.48px, min(6.44vw, 9.2svh), 95.68px); line-height: 1.02; }
+.energy-kicker { margin-bottom: 16px; }
+.energy-description { font-size: 12px; line-height: 1.6; margin-top: 18px; }
+.energy-card { margin-top: 0; }
+.energy-card-inner { padding: clamp(18px, 3svh, 34px); }
+.energy-card h3 { font-size: clamp(26px, min(3vw, 5svh), 40px); margin: 18px 0 12px; }
+.energy-card p { font-size: 12px; line-height: 1.6; }
+.energy-cta { min-height: 44px; margin-top: 18px; }
+.energy-footer { padding-block: 10px 0; min-height: 54px; }
+@media (max-width: 767px) and (min-height: 561px) {
+  .benefits, .journey, .models, .energy { --fold-rail: 40px; --fold-gap: 10px; padding-bottom: 16px; }
+  .benefits-grid { height: auto; grid-template-columns: 1fr; grid-template-rows: max-content max-content; align-content: start; align-items: start; gap: 16px; }
+  .benefits-content { gap: 12px; }
+  .benefits-photo { width: min(100%, clamp(180px, 28svh, 260px)); height: auto; aspect-ratio: 1; justify-self: center; }
+  .benefits-photo-label, .benefits-photo-index { display: none; }
+  .benefits-photo-caption { inset: auto 12px 10px; }
+  .benefits-surface { padding: 6px 8px; }
+  .benefits-surface::before { width: 12px; height: 12px; }
+  .benefits-image { object-position: center; }
+  .benefits-eyebrow { font-size: 8px; }
+  .benefits-title { font-size: clamp(27.6px, 8.28vw, 38.64px); }
+  .benefits-description { font-size: 12px; line-height: 1.65; }
+  .benefits-specs { gap: 24px; }
+  .benefits-value { font-size: 30px; }
+  .benefits-spec { padding-top: 10px; }
+  .benefits-spec p { font-size: 12px; line-height: 1.6; margin-top: 8px; }
+  .benefits-cta { width: 100%; }
+  .journey-heading { grid-template-columns: 1fr; gap: 14px; }
+  .journey-title { font-size: clamp(31.28px, 8.28vw, 47.84px); }
+  .journey-intro { max-width: none; font-size: 12px; line-height: 1.65; }
+  .journey-inner { grid-template-rows: var(--fold-rail) max-content max-content max-content; align-content: start; }
+  .journey-grid { grid-template-columns: 1fr; grid-template-rows: max-content max-content; align-content: start; align-items: start; gap: 16px; }
+  .journey-photo { grid-row: 1; width: 100%; height: auto; aspect-ratio: 3 / 2; }
+  .journey-photo-top { display: none; }
+  .journey-photo-caption { inset: auto 12px 10px; }
+  .journey-image { object-position: center 60%; }
+  .journey-index { margin-bottom: 8px; }
+  .journey-toggle { min-height: 44px; padding-block: 8px; }
+  .journey-toggle-title { font-size: 23px; }
+  .journey-answer p { max-width: none; font-size: 12px; padding-top: 0; padding-bottom: 12px; line-height: 1.6; }
+  .journey-bottom { gap: 10px; padding-top: 10px; }
+  .journey-signoff { font-size: 18px; }
+  .journey-signoff span { margin-top: 4px; font-size: 8px; }
+  .models-heading { grid-template-columns: 1fr; gap: 8px; }
+  .models-title { font-size: 27.6px; }
+  .models-title span { display: block; }
+  .models-intro { max-width: none; font-size: 12px; line-height: 1.4; }
+  .model-card h3 { font-size: 26px; }
+  .model-price small { font-size: 13px; padding-top: 3px; }
+  .model-price .model-cents { font-size: 18px; }
+  .models-footnote { gap: 4px; font-size: 7px; line-height: 1.4; }
+  .models-footnote p:last-child { display: none; }
+  .energy-content { grid-template-columns: 1fr; gap: 14px; align-content: center; }
+  .energy-title { font-size: clamp(31.28px, 8.74vw, 47.84px); }
+  .energy-kicker { margin-bottom: 10px; }
+  .energy-description { max-width: none; margin-top: 12px; }
+  .energy-card { max-width: none; }
+  .energy-card-inner { padding: 16px; }
+  .energy-card-icon { width: 28px; height: 28px; }
+  .energy-card h3 { font-size: 24px; margin: 12px 0 8px; }
+  .energy-cta { margin-top: 12px; }
+  .energy-footer { min-height: 54px; gap: 12px; }
+}
+@media (max-height: 560px) {
+  .benefits, .journey, .models, .energy { --fold-rail: 32px; --fold-gap: 8px; padding-bottom: 8px; }
+  .benefits-grid { grid-template-columns: .6fr 1.4fr; gap: 28px; }
+  .benefits-photo { height: 100%; }
+  .benefits-content { gap: 10px; }
+  .benefits-title { font-size: 27.6px; }
+  .benefits-description { max-width: none; font-size: 12px; line-height: 1.6; }
+  .benefits-spec { padding-top: 6px; }
+  .benefits-value { font-size: 26px; }
+  .benefits-spec p { max-width: none; font-size: 12px; line-height: 1.5; margin-top: 6px; }
+  .benefits-spec dt { margin-top: 4px; }
+  .journey-inner { grid-template-columns: .9fr 1.3fr; grid-template-rows: var(--fold-rail) minmax(0, 1fr) auto; column-gap: 32px; }
+  .journey-rail, .journey-bottom { grid-column: 1 / -1; }
+  .journey-heading { grid-column: 1; grid-row: 2; grid-template-columns: 1fr; align-content: center; gap: 16px; }
+  .journey-title { font-size: 33.12px; }
+  .journey-grid { display: contents; }
+  .journey-photo { display: none; }
+  .journey-usecases { grid-column: 2; grid-row: 2; align-self: center; }
+  .journey-toggle { min-height: 48px; padding-block: 10px; }
+  .journey-toggle-title { font-size: 23px; }
+  .journey-answer p { max-width: none; font-size: 12px; padding-bottom: 12px; line-height: 1.6; }
+  .journey-bottom { flex-direction: row; align-items: center; padding-top: 8px; }
+  .journey-signoff { font-size: 18px; }
+  .journey-signoff span { margin-top: 4px; }
+  .journey-buy { width: auto; min-width: 240px; }
+  .models-heading { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .models-title { font-size: 23.92px; }
+  .models-title span { display: inline; }
+  .models-title span::before { content: '\00a0'; }
+  .models-intro { line-height: 1.4; }
+  .model-card h3 { font-size: 24px; }
+  .model-price { font-size: 30px; }
+  .model-topline { font-size: 7px; min-height: 14px; }
+  .model-description { font-size: 12px; line-height: 1.35; }
+  .models-footnote { font-size: 7px; line-height: 1.4; }
+  .energy-content { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .energy-title { font-size: 31.28px; }
+  .energy-kicker { margin-bottom: 10px; }
+  .energy-description { margin-top: 12px; }
+  .energy-card-inner { padding: 12px; }
+  .energy-card-icon { width: 26px; height: 26px; }
+  .energy-card h3 { margin: 10px 0 8px; font-size: 22px; }
+  .energy-cta { margin-top: 12px; }
+  .energy-footer { min-height: 48px; padding-top: 4px; }
+}
+/* If zoom or larger system text exceeds the budget, preserve readable content. */
+.benefits.fold-natural, .journey.fold-natural, .models.fold-natural, .energy.fold-natural { height: auto; min-height: 100svh; overflow: visible; }
+.fold-natural .benefits-grid, .fold-natural .models-grid, .fold-natural .energy-content { height: auto; }
+.fold-natural .benefits-photo, .fold-natural .journey-photo { min-height: 120px; }
+.fold-natural .model-art { flex: none; height: 100px; }

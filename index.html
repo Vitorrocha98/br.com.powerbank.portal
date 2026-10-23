@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f4f4ef">
   <meta name="description" content="Energia para seguir. Conheça o power bank em uma experiência de produto controlada por você.">
-  <title>POWER / 01 — Energia para seguir.</title>
+  <title>VYON — Energia para seguir.</title>
   <link rel="stylesheet" href="digital-architect.aura.build/assets/css2_19fd9cc6b396.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css">
   <style>
     /* Foundations inherited from design_system.html. */
     :root {
@@ -54,7 +55,7 @@
     .copy::before { mask-image: linear-gradient(transparent, #000 12%, #000 82%, transparent); }
     .eyebrow { display: flex; gap: 10px; align-items: center; margin: 0 0 29px; font-size: 9px; letter-spacing: .2em; }
     .signal { width: 6px; height: 6px; background: var(--ink); box-shadow: 0 0 0 5px var(--acid); border-radius: 50%; margin: 0 5px; }
-    h1 { margin: 0; font-size: clamp(68px, 7.6vw, 118px); font-weight: 600; text-transform: uppercase; line-height: .88; letter-spacing: -.075em; }
+    h1 { margin: 0; font-size: clamp(62.56px, 6.99vw, 108.56px); font-weight: 600; text-transform: uppercase; line-height: .95; letter-spacing: -.075em; }
     .title-line { display: block; overflow: hidden; padding: .08em .05em .1em 0; margin-bottom: -.08em; }
     .title-word { display: block; }
     .outline { color: transparent; -webkit-text-stroke: 1.5px rgba(23,23,20,.85); }
@@ -74,6 +75,12 @@
     .button:active { transform: translateY(2px); }
     .media { position: absolute; z-index: 0; inset: 0; margin: 0; pointer-events: none; }
     .media-stage { position: absolute; inset: 0; left: -5vw; width: 110vw; display: flex; align-items: center; justify-content: center; transform: translateX(5vw); }
+    /* Composite the moving layers without repainting animated blur filters. */
+    .experience.is-scrollable .media-stage,
+    .experience.is-scrollable .copy,
+    .experience.is-scrollable .site-header,
+    .experience.is-scrollable .scroll-scene,
+    .experience.is-scrollable .product-meta { will-change: transform, opacity; }
     /* Keep the established scale, but never fit the image narrower than the viewport. */
     .media video { display: block; flex-shrink: 0; width: clamp(100vw, calc(100svh * 16 / 9), 110vw); aspect-ratio: 16 / 9; object-fit: contain; }
     .media-caption { position: absolute; right: var(--gutter); bottom: 128px; display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 9px; }
@@ -123,10 +130,10 @@
       /* Preserve the power bank's lower edge when the wider image exceeds the viewport height. */
       .media video { transform: translateY(clamp(-40px, calc((100svh - 100vw * 9 / 16) * .2), 0px)); }
     }
-    @media (min-width: 1800px) { h1 { font-size: 132px; } }
+    @media (min-width: 1800px) { h1 { font-size: 121.44px; } }
     @media (max-width: 1100px) and (min-width: 768px) {
       :root { --gutter: 32px; }
-      h1 { font-size: clamp(65px, 8vw, 87px); }
+      h1 { font-size: clamp(59.8px, 7.36vw, 80.04px); }
       .hero-body { grid-template-columns: 48% 1fr; }
       .actions { gap: 8px; }
       .button { padding-inline: 16px; gap: 14px; }
@@ -142,7 +149,8 @@
       .copy { padding: 0; }
       .copy::before { inset: -20px -24px; background: linear-gradient(var(--paper) 60%, #f4f4ef00); }
       .eyebrow { font-size: 8px; margin-bottom: 21px; }
-      h1 { font-size: clamp(58px, 14.8vw, 94px); line-height: .87; }
+      .hero { --hero-title-size: clamp(53.36px, 13.62vw, 86.48px); }
+      h1 { font-size: var(--hero-title-size); line-height: .94; }
       .outline { -webkit-text-stroke-width: 1.5px; }
       .description { font-size: 12px; line-height: 1.65; max-width: 290px; margin: 19px 0 17px; }
       .actions { flex-wrap: nowrap; gap: 9px; }
@@ -151,28 +159,339 @@
       .hero-footer { display: none; }
       .chapter { display: none; }
       .scroll-scene { top: 6%; max-width: calc(100% - 48px); }
-      .scroll-scene h2 { font-size: clamp(30px, 7vw, 48px); }
+      .scroll-scene h2 { font-size: var(--hero-title-size); }
       .media-status { left: 24px; bottom: 12px; font-size: 10px; }
     }
     @media (max-width: 374px) {
       :root { --gutter: 20px; }
-      h1 { font-size: 56px; }
+      .hero { --hero-title-size: 51.52px; }
       .button { padding-inline: 12px; gap: 12px; }
     }
     @media (min-width: 768px) and (max-height: 720px) {
       .hero { top: min(0px, calc(100svh - 570px)); min-height: 570px; grid-template-rows: 68px 1fr 80px; }
-      h1 { font-size: clamp(66px, 6.7vw, 94px); }
+      h1 { font-size: clamp(60.72px, 6.16vw, 86.48px); }
       .copy { padding-block: 20px; }
       .eyebrow { margin-bottom: 20px; }
       .description { margin: 22px 0 20px; }
     }
+    /* Product editorial — typography, palette and linework from the original DS. */
+    .benefits { position: relative; padding: 0 var(--gutter) clamp(48px, 6vw, 96px); background: var(--paper); }
+    .benefits-rail { display: flex; justify-content: space-between; align-items: center; gap: 20px; min-height: 76px; border-top: 1px solid var(--line); color: var(--muted); }
+    .benefits-rail span:last-child { display: inline-flex; align-items: center; gap: 12px; }
+    .benefits-rail i { display: block; width: 6px; height: 6px; background: var(--ink); border-radius: 50%; box-shadow: 0 0 0 4px var(--acid); }
+    .benefits-grid { display: grid; grid-template-columns: 1.08fr 1fr; gap: clamp(40px, 5.4vw, 88px); align-items: center; max-width: 1700px; margin-inline: auto; }
+    .benefits-photo { position: relative; isolation: isolate; margin: 0; aspect-ratio: 1 / 1.04; overflow: hidden; background: #e9e9e2; }
+    .benefits-photo::after { content: ""; position: absolute; inset: 0; border: 1px solid #1717140d; pointer-events: none; }
+    .benefits-image { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; }
+    .benefits-photo-label { position: absolute; z-index: 1; top: 24px; left: 24px; right: 24px; display: flex; justify-content: space-between; gap: 12px; color: var(--ink); font-size: 8px; }
+    .benefits-photo-label svg { width: 16px; height: 16px; }
+    .benefits-photo-caption { position: absolute; z-index: 1; inset: auto 24px 24px; display: flex; justify-content: space-between; gap: 20px; align-items: flex-end; }
+    .benefits-surface { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: var(--paper); border: 1px solid var(--line); font-size: 8px; }
+    .benefits-surface::before { content: ""; width: 20px; height: 20px; background: var(--ink); background-image: repeating-linear-gradient(135deg, transparent 0 2px, #ffffff35 2px 3px); }
+    .benefits-photo-index { font: 10px var(--mono); letter-spacing: .12em; }
+    .benefits-content { padding-block: 24px; min-width: 0; }
+    .benefits-eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 28px; color: var(--muted); font-size: 9px; }
+    .benefits-eyebrow::before { content: ""; width: 8px; height: 8px; flex-shrink: 0; background: var(--acid); box-shadow: 0 0 0 1px var(--line); }
+    .benefits-title { margin: 0; font-size: clamp(44px, 5.3vw, 88px); line-height: .96; letter-spacing: -.065em; font-weight: 500; text-transform: uppercase; }
+    .benefits-title > span { display: block; }
+    .benefits-title .outline { -webkit-text-stroke-width: 1.5px; }
+    .benefits-description { max-width: 390px; margin: 28px 0 0; font-size: clamp(13px, 1.05vw, 16px); line-height: 1.8; color: var(--muted); }
+    .benefits-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin: 36px 0 0; }
+    .benefits-spec { display: grid; grid-template-rows: auto auto 1fr; border-top: 1px solid var(--line); padding-top: 18px; }
+    .benefits-spec dt { grid-row: 2; margin: 11px 0 0; font-size: 8px; letter-spacing: .12em; }
+    .benefits-spec dd { display: contents; margin: 0; }
+    .benefits-value { display: block; font-size: clamp(38px, 3.5vw, 56px); line-height: 1; font-weight: 300; letter-spacing: -.065em; font-variant-numeric: tabular-nums; }
+    .benefits-spec p { grid-row: 3; margin: 9px 0 0; font-size: 11px; line-height: 1.6; color: var(--muted); max-width: 180px; }
+    .benefits-cta { display: inline-flex; align-items: center; justify-content: space-between; gap: 32px; min-height: 48px; margin-top: 32px; padding-block: 12px; border-bottom: 1px solid var(--ink); background: transparent; border-top: 0; border-inline: 0; font-size: 9px; transition: gap .45s var(--ease); }
+    .benefits-cta:hover { gap: 48px; }
+    .benefits-cta svg { width: 28px; height: 28px; padding: 5px; background: var(--acid); transition: transform .45s var(--ease); }
+    .benefits-cta:hover svg { transform: rotate(45deg); }
+    @media (min-width: 1800px) { .benefits-photo { max-height: 850px; } }
+    @media (max-width: 1023px) {
+      .benefits-grid { gap: 32px; grid-template-columns: 1fr 1fr; }
+      .benefits-photo { aspect-ratio: 4 / 5; }
+      .benefits-title { font-size: clamp(34px, 5vw, 54px); }
+      .benefits-eyebrow { font-size: 8px; letter-spacing: .1em; margin-bottom: 22px; }
+      .benefits-specs { gap: 16px; margin-top: 28px; }
+      .benefits-description { margin-top: 22px; }
+      .benefits-photo-label { top: 16px; left: 16px; right: 16px; }
+      .benefits-photo-caption { inset: auto 16px 16px; }
+    }
+    @media (max-width: 767px) {
+      .benefits-rail { min-height: 64px; font-size: 8px; letter-spacing: .1em; }
+      .benefits-rail span:last-child { font-size: 0; gap: 0; padding-right: 5px; }
+      .benefits-grid { grid-template-columns: 1fr; gap: 34px; }
+      .benefits-photo { aspect-ratio: 1 / 1; }
+      .benefits-content { padding-block: 0; }
+      .benefits-title { font-size: clamp(40px, 10.4vw, 72px); }
+      .benefits-description { max-width: 440px; font-size: 14px; }
+      .benefits-specs { margin-top: 30px; gap: 24px; }
+      .benefits-value { font-size: 46px; }
+      .benefits-cta { width: 100%; margin-top: 28px; }
+    }
+    /* A darker chapter, using the DS's ink / paper / signal palette. */
+    .journey { --journey-line: #f4f4ef29; position: relative; overflow: hidden; padding: 0 var(--gutter); color: var(--paper); background: var(--ink); }
+    .journey :focus-visible { outline-color: var(--acid); }
+    .journey-inner { max-width: 1700px; margin-inline: auto; }
+    .journey-rail { display: flex; justify-content: space-between; gap: 24px; align-items: center; min-height: 80px; color: #b7b7ae; border-bottom: 1px solid var(--journey-line); font-size: 9px; }
+    .journey-rail > span:last-child { color: var(--acid); display: flex; align-items: center; gap: 10px; }
+    .journey-rail .icon { width: 13px; height: 13px; }
+    .journey-heading { display: grid; grid-template-columns: 1.45fr 1fr; gap: 48px; align-items: end; padding-block: clamp(40px, 5vw, 80px); }
+    .journey-title { margin: 0; font-size: clamp(54px, 7.7vw, 128px); line-height: .91; letter-spacing: -.07em; font-weight: 500; text-transform: uppercase; }
+    .journey-title > span { display: block; }
+    .journey-title em { color: var(--acid); font-style: normal; }
+    .journey-intro { justify-self: end; max-width: 310px; margin: 0 0 4px; font-size: 14px; line-height: 1.8; color: #b7b7ae; }
+    .journey-intro strong { font-weight: 400; color: var(--paper); }
+    .journey-grid { display: grid; grid-template-columns: .76fr 1.6fr; gap: clamp(40px, 6vw, 100px); align-items: center; }
+    .journey-index { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 28px; color: #b7b7ae; font-size: 8px; }
+    .journey-index > span:last-child { letter-spacing: 0; color: var(--paper); }
+    .journey-index b { font-weight: 400; color: var(--acid); }
+    .journey-item { border-top: 1px solid var(--journey-line); }
+    .journey-item:last-child { border-bottom: 1px solid var(--journey-line); }
+    .journey-item h3 { margin: 0; font: inherit; }
+    .journey-toggle { display: flex; align-items: center; gap: 16px; width: 100%; min-height: 84px; padding: 20px 0; border: 0; background: transparent; color: #b7b7ae; text-align: left; transition: color .3s var(--ease); }
+    .journey-toggle:hover, .journey-toggle[aria-expanded="true"] { color: var(--paper); }
+    .journey-toggle > span:first-child { align-self: center; font: 9px var(--mono); color: #b7b7ae; transition: color .3s; }
+    .journey-toggle[aria-expanded="true"] > span:first-child { color: var(--acid); }
+    .journey-toggle-title { font-size: clamp(23px, 2.1vw, 34px); letter-spacing: -.055em; }
+    .journey-plus { position: relative; width: 17px; height: 17px; margin-left: auto; flex-shrink: 0; }
+    .journey-plus::before, .journey-plus::after { content: ""; position: absolute; background: currentColor; inset: 8px 2px auto; height: 1px; transition: transform .4s var(--ease); }
+    .journey-plus::after { transform: rotate(90deg); }
+    .journey-toggle[aria-expanded="true"] .journey-plus::after { transform: rotate(0); }
+    .journey-answer { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .55s var(--ease), opacity .4s var(--ease); }
+    .journey-item.is-active .journey-answer { grid-template-rows: 1fr; opacity: 1; }
+    .journey-answer > div { min-height: 0; overflow: hidden; }
+    .journey-answer p { margin: 0; padding: 0 16px 26px 31px; color: #b7b7ae; font-size: 12px; line-height: 1.85; }
+    .journey-photo { position: relative; margin: 0; aspect-ratio: 1.6; background: #20201c; overflow: hidden; isolation: isolate; }
+    .journey-visual { position: absolute; inset: 0; z-index: 0; }
+    /* Same dissolve as the DS carousel, with the DS reveal easing on movement. */
+    .journey-image { position: absolute; inset: -5% 0; width: 100%; height: 110%; object-fit: cover; opacity: 0; transform: translate3d(0, 8px, 0) scale(1.035); transition: opacity 1.4s ease, transform 1.4s var(--ease); pointer-events: none; }
+    .journey-image.is-current { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+    .journey-photo::after { content: ""; position: absolute; inset: -1px; pointer-events: none; background: linear-gradient(transparent 55%, #171714b3); z-index: 1; }
+    .journey-photo-top { position: absolute; z-index: 2; top: 24px; left: 24px; right: 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--paper); font-size: 8px; }
+    .journey-photo-mark { display: grid; place-items: center; width: 28px; height: 28px; background: var(--acid); color: var(--ink); }
+    .journey-photo-mark .icon { width: 15px; height: 15px; }
+    .journey-photo-caption { position: absolute; z-index: 2; left: 24px; right: 24px; bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 8px; }
+    .journey-photo-caption > span:first-child { display: inline-flex; align-items: center; gap: 10px; }
+    .journey-photo-caption > span:first-child::before { content: ""; width: 5px; height: 5px; background: var(--acid); border-radius: 50%; }
+    .journey-photo-caption > span:last-child { color: #b7b7ae; }
+    .journey-bottom { display: flex; align-items: center; justify-content: space-between; gap: 40px; margin-top: clamp(40px, 5vw, 72px); padding-block: 32px 40px; border-top: 1px solid var(--journey-line); }
+    .journey-signoff { margin: 0; font-size: clamp(19px, 2vw, 30px); line-height: 1.25; letter-spacing: -.04em; }
+    .journey-signoff span { display: block; margin-top: 9px; color: #b7b7ae; font-size: 9px; letter-spacing: .1em; }
+    .journey-buy { min-width: 260px; min-height: 60px; border-color: var(--acid); background: var(--acid); color: var(--ink); }
+    .journey-buy:hover { background: var(--paper); border-color: var(--paper); }
+    @media (max-width: 1023px) {
+      .journey-heading { gap: 32px; grid-template-columns: 1.3fr 1fr; }
+      .journey-title { font-size: clamp(52px, 7.7vw, 80px); }
+      .journey-intro { font-size: 12px; }
+      .journey-grid { gap: 32px; grid-template-columns: .95fr 1.3fr; }
+      .journey-photo { aspect-ratio: 1; }
+      .journey-toggle { min-height: 74px; gap: 12px; }
+      .journey-answer p { padding-left: 27px; }
+      .journey-photo-caption { left: 16px; right: 16px; bottom: 16px; font-size: 7px; letter-spacing: .08em; }
+      .journey-photo-caption > span:last-child { display: none; }
+      .journey-photo-top { top: 16px; left: 16px; right: 16px; }
+    }
+    @media (max-width: 767px) {
+      .journey-rail { min-height: 64px; font-size: 8px; letter-spacing: .1em; }
+      .journey-rail > span:last-child { font-size: 0; gap: 0; }
+      .journey-heading { grid-template-columns: 1fr; gap: 24px; padding-block: 36px 32px; }
+      .journey-title { font-size: clamp(46px, 11.6vw, 86px); }
+      .journey-intro { justify-self: start; max-width: 340px; font-size: 13px; }
+      .journey-grid { grid-template-columns: 1fr; gap: 32px; }
+      .journey-photo { grid-row: 1; aspect-ratio: 1.2; }
+      .journey-index { margin-bottom: 18px; }
+      .journey-toggle { min-height: 72px; }
+      .journey-toggle-title { font-size: 28px; }
+      .journey-answer p { max-width: 440px; font-size: 13px; padding-right: 24px; }
+      .journey-bottom { flex-direction: column; align-items: stretch; gap: 26px; margin-top: 36px; padding-block: 28px 36px; }
+      .journey-buy { width: 100%; min-width: 0; }
+    }
+    /* Product family. */
+    .models { padding: 0 var(--gutter) clamp(64px, 7vw, 112px); background: var(--paper); }
+    .models-inner { max-width: 1700px; margin: auto; }
+    .models-rail { min-height: 76px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 20px; color: var(--muted); }
+    .models-heading { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: end; padding: 32px 0 48px; }
+    .models-title { font-size: clamp(44px, 5.4vw, 86px); font-weight: 500; line-height: .98; letter-spacing: -.065em; text-transform: uppercase; margin: 0; }
+    .models-title span { display: block; }
+    .models-intro { max-width: 340px; margin: 0 0 4px; justify-self: end; color: var(--muted); font-size: 14px; line-height: 1.8; }
+    .models-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); }
+    .model-card { position: relative; isolation: isolate; min-width: 0; padding: clamp(22px, 2.6vw, 42px); display: flex; flex-direction: column; background: var(--paper); transition: background .5s var(--ease), box-shadow .5s var(--ease); }
+    .model-card + .model-card { border-left: 1px solid var(--line); }
+    .model-card-pro { background: #e8edcf; }
+    .model-topline { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 28px; color: var(--muted); font-size: 8px; letter-spacing: .1em; }
+    .model-badge { padding: 6px 9px; border: 1px solid #17171430; color: var(--ink); font-size: 7px; letter-spacing: .08em; }
+    .model-card h3 { margin: 23px 0 0; font-size: clamp(30px, 3vw, 46px); letter-spacing: -.065em; line-height: 1; font-weight: 500; }
+    .model-card h3 span { font-weight: 300; }
+    .model-art { position: relative; isolation: isolate; display: grid; place-items: center; aspect-ratio: 1.5; margin: 32px -8px 24px; }
+    .model-art::before { content: ""; position: absolute; z-index: 0; pointer-events: none; width: 85%; aspect-ratio: 1; border: 1px solid #17171412; border-radius: 50%; transform: scale(.8); opacity: 0; transition: transform .8s var(--ease), opacity .6s; }
+    .model-art::after { content: ""; position: absolute; z-index: 0; pointer-events: none; inset: 10% 5%; background: radial-gradient(ellipse, #dfff0080, #dfff0000 70%); opacity: 0; transform: scale(.5); transition: opacity .6s, transform .8s var(--ease); }
+    .model-image { position: relative; z-index: 1; display: block; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: normal; filter: drop-shadow(0 16px 12px #17171420); transition: transform .85s var(--ease); }
+    .model-card-essential .model-image { width: 86%; height: 86%; }
+    .model-card-plus .model-image { width: 94%; height: 94%; }
+    .model-card-pro .model-image { width: 106%; }
+    .model-caption { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--line); padding-bottom: 16px; color: var(--muted); font-size: 7px; letter-spacing: .08em; }
+    .model-indicator { display: inline-flex; align-items: center; gap: 4px; }
+    .model-indicator i { width: 9px; height: 4px; background: #17171420; transition: background .3s, box-shadow .3s; }
+    .model-indicator i:nth-child(2) { transition-delay: .1s; }
+    .model-indicator i:nth-child(3) { transition-delay: .2s; }
+    .model-indicator i:nth-child(4) { transition-delay: .3s; }
+    .model-description { min-height: 72px; margin: 22px 0 20px; font-size: 13px; line-height: 1.8; color: var(--muted); max-width: 300px; }
+    .model-price { display: flex; align-items: baseline; gap: 7px; margin: 0; font-size: clamp(42px, 4.4vw, 68px); font-weight: 400; line-height: 1; letter-spacing: -.065em; font-variant-numeric: tabular-nums; }
+    .model-price small { font-size: 16px; letter-spacing: -.04em; align-self: flex-start; padding-top: 7px; }
+    .model-price .model-cents { font-size: 23px; letter-spacing: -.04em; }
+    .model-price-note { margin: 10px 0 25px; color: var(--muted); font-size: 8px; letter-spacing: .08em; }
+    .model-select { width: 100%; gap: 12px; margin-top: auto; }
+    .model-card-pro .model-select { background: var(--ink); color: var(--paper); }
+    .model-features { list-style: none; margin: 26px 0 0; padding: 21px 0 0; border-top: 1px solid var(--line); display: grid; gap: 15px; font-size: 11px; line-height: 1.5; }
+    .model-features li { display: flex; align-items: baseline; gap: 10px; }
+    .model-features li::before { content: "+"; font: 12px var(--mono); color: var(--muted); }
+    .models-footnote { display: flex; justify-content: space-between; gap: 24px; padding-top: 20px; color: var(--muted); font-size: 8px; line-height: 1.8; letter-spacing: .06em; }
+    .models-footnote p { margin: 0; }
+    .model-card:focus-within { z-index: 2; box-shadow: 0 16px 40px #17171412; }
+    .model-card:focus-within .model-art::before { opacity: 1; transform: scale(1); }
+    .model-card:focus-within .model-art::after { opacity: 1; transform: scale(1.2); }
+    .model-card:focus-within .model-image { transform: translateY(-12px) rotate(-4deg); }
+    .model-card:focus-within .model-indicator i { background: var(--ink); box-shadow: 0 0 7px #dfff00; }
+    @media (hover: hover) and (pointer: fine) {
+      .model-card:hover { z-index: 2; background: #efefe6; box-shadow: 0 16px 40px #17171412; }
+      .model-card-pro:hover { background: #e0e9b6; }
+      .model-card:hover .model-art::before { opacity: 1; transform: scale(1); }
+      .model-card:hover .model-art::after { opacity: 1; transform: scale(1.2); }
+      .model-card-essential:hover .model-image { transform: translateY(-12px) rotate(-7deg); }
+      .model-card-plus:hover .model-image { transform: translateY(-16px) rotate(3deg) scale(1.05); }
+      .model-card-pro:hover .model-image { transform: translateY(-20px) rotate(-4deg) scale(1.08); }
+      .model-card-pro:hover .model-art::before { transform: scale(1.12) rotate(15deg); border-color: #17171430; border-radius: 45%; }
+      .model-card:hover .model-indicator i { background: var(--ink); box-shadow: 0 0 7px #dfff00; }
+      .model-card:hover .model-select { background: var(--ink); color: var(--paper); }
+      .model-card-pro:hover .model-select { background: var(--acid); border-color: var(--acid); color: var(--ink); }
+    }
+    @media (max-width: 1100px) and (min-width: 768px) {
+      .model-card { padding: 22px 18px; }
+      .model-topline { font-size: 7px; gap: 5px; }
+      .model-badge { font-size: 6px; padding: 5px; }
+      .model-description { min-height: 94px; font-size: 12px; }
+      .model-caption { font-size: 6px; letter-spacing: 0; }
+      .model-select { font-size: 8px; padding-inline: 12px; }
+      .model-features { font-size: 10px; }
+    }
+    @media (max-width: 767px) {
+      .models-rail { min-height: 64px; font-size: 8px; }
+      .models-rail span:last-child { display: none; }
+      .models-heading { grid-template-columns: 1fr; gap: 24px; padding: 24px 0 32px; }
+      .models-title { font-size: clamp(40px, 10.5vw, 72px); }
+      .models-intro { justify-self: start; font-size: 13px; }
+      .models-grid { grid-template-columns: 1fr; }
+      .model-card { padding: 28px; }
+      .model-card + .model-card { border-left: 0; border-top: 1px solid var(--line); }
+      .model-card h3 { font-size: 40px; }
+      .model-art { max-width: 420px; width: 100%; align-self: center; margin-block: 25px 20px; }
+      .model-description { min-height: 0; max-width: none; }
+      .model-price { font-size: 58px; }
+      .models-footnote { flex-direction: column; gap: 8px; }
+    }
+    /* Cinematic closing fold. */
+    .energy { position: relative; isolation: isolate; overflow: hidden; min-height: max(820px, 100svh); background: #10110f; color: var(--paper); padding: 0 var(--gutter); }
+    .energy-video { position: absolute; z-index: -3; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 65% center; opacity: .68; filter: brightness(.65) saturate(.4); }
+    .energy::before { content: ""; position: absolute; z-index: -2; inset: 0; background: linear-gradient(90deg, #10110ff5 0%, #10110fc4 33%, #10110f15 75%), linear-gradient(0deg, #10110f 0%, transparent 45%, #10110f70 100%); pointer-events: none; }
+    .energy-rail { min-height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border-bottom: 1px solid #f4f4ef26; color: #c0c1b6; }
+    .energy-rail span:last-child { display: inline-flex; align-items: center; gap: 10px; }
+    .energy-rail .icon { width: 14px; color: var(--acid); }
+    .energy-content { max-width: 1700px; margin: auto; padding-block: clamp(64px, 7vw, 112px) 72px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 56px; align-items: end; }
+    .energy-kicker { margin: 0 0 30px; color: var(--acid); font-size: 9px; }
+    .energy-title { font-size: clamp(64px, 7.4vw, 120px); font-weight: 500; line-height: .94; letter-spacing: -.07em; text-transform: uppercase; margin: 0; }
+    .energy-title span { display: block; }
+    .energy-title em { font-style: normal; color: var(--acid); }
+    .energy-outline { color: transparent; -webkit-text-stroke: 1px #f4f4efb3; }
+    .energy-description { max-width: 310px; color: #bfc0b6; font-size: 14px; line-height: 1.8; margin: 32px 0 0; }
+    .energy-card { position: relative; isolation: isolate; width: 100%; max-width: 430px; justify-self: end; padding: 1px; margin-top: 160px; }
+    .energy-card::before { content: ""; position: absolute; z-index: -1; inset: -16px; background: radial-gradient(ellipse at 65% 80%, #dfff002b, transparent 68%); filter: blur(22px); pointer-events: none; }
+    .energy-card-border { position: absolute; z-index: -1; inset: 0; overflow: hidden; background: #f4f4ef30; pointer-events: none; }
+    .energy-card-border::before { content: ""; position: absolute; width: 900px; height: 900px; top: calc(50% - 450px); left: calc(50% - 450px); background: conic-gradient(from 0deg, transparent 0deg 265deg, #dfff0030 305deg, var(--acid) 340deg, #ffffe8 355deg, transparent 360deg); animation: energy-beam 9s linear infinite; animation-play-state: paused; }
+    .energy.is-in-view .energy-card-border::before { animation-play-state: running; }
+    .energy-card-inner { background: linear-gradient(135deg, #20221bf5, #11130ff5); padding: clamp(26px, 3vw, 42px); }
+    .energy-card-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; color: #bfc0b6; font-size: 8px; }
+    .energy-card-icon { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid #dfff003b; background: #dfff000b; color: var(--acid); }
+    .energy-card h3 { margin: 35px 0 18px; font-size: clamp(32px, 3vw, 44px); line-height: 1.08; font-weight: 500; letter-spacing: -.055em; }
+    .energy-card p { color: #bfc0b6; font-size: 13px; line-height: 1.8; margin: 0; max-width: 300px; }
+    .energy-cta { width: 100%; margin-top: 30px; background: var(--acid); border-color: var(--acid); color: var(--ink); }
+    .energy-cta:hover { background: #edff80; border-color: #edff80; box-shadow: 0 0 24px #dfff0026; }
+    .energy :focus-visible { outline-color: var(--acid); }
+    .energy-footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 20px 26px; border-top: 1px solid #f4f4ef26; color: #bfc0b6; font-size: 8px; }
+    .energy-playback { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; background: transparent; border: 1px solid #f4f4ef30; color: var(--paper); padding: 10px 14px; font-size: 8px; }
+    .energy-playback:hover { border-color: var(--acid); }
+    .energy-playback[hidden] { display: none; }
+    @keyframes energy-beam { to { transform: rotate(360deg); } }
+    @media (min-width: 1800px) { .energy-content { padding-block: 130px 100px; } }
+    @media (max-width: 1023px) { .energy-content { gap: 32px; grid-template-columns: 1fr 1fr; } .energy-title { font-size: clamp(56px, 8vw, 82px); } .energy-card-inner { padding: 26px; } }
+    @media (max-width: 767px) {
+      .energy { min-height: auto; }
+      .energy-rail { min-height: 68px; font-size: 8px; letter-spacing: .08em; }
+      .energy-rail span:last-child { display: none; }
+      .energy-content { grid-template-columns: 1fr; padding-block: 56px 40px; gap: 100px; }
+      .energy-title { font-size: clamp(56px, 13vw, 88px); }
+      .energy-description { font-size: 13px; max-width: 290px; margin-top: 24px; }
+      .energy-video { object-position: 60% center; }
+      .energy::before { background: linear-gradient(180deg, #10110fe8 0%, #10110f55 48%, #10110fe8 85%), linear-gradient(90deg, #10110f90, transparent); }
+      .energy-card { margin-top: 0; max-width: none; }
+      .energy-card h3 { font-size: 36px; margin-top: 28px; }
+      .energy-footer { gap: 12px; font-size: 7px; letter-spacing: .08em; }
+      .energy-playback { flex-shrink: 0; font-size: 7px; }
+    }
+    .portal-footer { padding: 0 var(--gutter); color: var(--ink); background: var(--paper); }
+    .portal-footer-inner { max-width: 1700px; margin-inline: auto; }
+    .portal-footer-rail { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 72px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 8px; }
+    .portal-footer-signal { display: inline-flex; align-items: center; gap: 10px; }
+    .portal-footer-signal::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 4px var(--acid); }
+    .portal-footer-content { display: grid; grid-template-columns: 1.6fr 1fr auto; gap: 48px; align-items: start; padding-block: 48px 52px; }
+    .portal-footer-brand { display: inline-flex; align-items: center; gap: 16px; min-height: 44px; }
+    .portal-footer-brand .identity-mark { width: 42px; height: 42px; }
+    .portal-footer-word { font-size: clamp(30px, 3.2vw, 48px); font-weight: 600; line-height: 1; letter-spacing: -.065em; }
+    .portal-footer-word span { color: var(--muted); font-weight: 300; margin-left: 8px; }
+    .portal-footer-tagline { margin: 22px 0 0; font-size: 15px; line-height: 1.65; letter-spacing: -.025em; }
+    .portal-footer-tagline span { color: var(--muted); }
+    .portal-footer-nav h2 { margin: 0 0 15px; font-size: 8px; font-weight: 400; color: var(--muted); }
+    .portal-footer-nav ul { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 28px; list-style: none; padding: 0; margin: 0; }
+    .portal-footer-nav a { display: inline-flex; align-items: center; min-height: 40px; font-size: 12px; transition: color .3s var(--ease); }
+    .portal-footer-nav a::after { content: "↗"; margin-left: 8px; opacity: 0; transform: translate(-4px, 3px); transition: transform .3s var(--ease), opacity .3s var(--ease); }
+    .portal-footer-nav a:hover::after, .portal-footer-nav a:focus-visible::after { opacity: 1; transform: none; }
+    .portal-footer-top { display: flex; flex-direction: column; align-items: center; gap: 14px; font-size: 8px; }
+    .portal-footer-top-mark { display: grid; place-items: center; width: 58px; height: 58px; border: 1px solid var(--line); transition: background .4s var(--ease), border-color .4s var(--ease); }
+    .portal-footer-top .icon { width: 21px; height: 21px; transform: rotate(-45deg); transition: transform .4s var(--ease); }
+    .portal-footer-top:hover .portal-footer-top-mark { background: var(--acid); border-color: var(--acid); }
+    .portal-footer-top:hover .icon { transform: rotate(-45deg) translate(2px, -2px); }
+    .portal-footer-bottom { display: flex; justify-content: space-between; gap: 20px; align-items: center; min-height: 66px; padding-block: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 8px; }
+    @media (max-width: 1023px) {
+      .portal-footer-content { grid-template-columns: 1.2fr 1fr auto; gap: 28px; }
+      .portal-footer-nav ul { gap: 4px 16px; }
+    }
+    @media (max-width: 767px) {
+      .portal-footer-rail { min-height: 64px; gap: 16px; font-size: 7px; letter-spacing: .1em; }
+      .portal-footer-content { grid-template-columns: 1fr auto; gap: 32px 24px; padding-block: 32px; }
+      .portal-footer-brand { gap: 12px; }
+      .portal-footer-brand .identity-mark { width: 34px; height: 34px; }
+      .portal-footer-word { font-size: 34px; }
+      .portal-footer-tagline { margin-top: 18px; font-size: 14px; }
+      .portal-footer-nav { grid-column: 1 / -1; grid-row: 2; }
+      .portal-footer-nav ul { grid-template-columns: 1fr 1fr; }
+      .portal-footer-top { grid-column: 2; grid-row: 1; font-size: 7px; }
+      .portal-footer-top-mark { width: 46px; height: 46px; }
+      .portal-footer-bottom { align-items: flex-start; flex-direction: column; gap: 10px; font-size: 7px; letter-spacing: .1em; }
+    }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
       .experience.is-scrollable { height: auto; }
+      .model-card .model-image, .model-card .model-art::before, .model-card .model-art::after { transform: none !important; }
     }
   </style>
+  <link rel="stylesheet" href="assets/viewport-folds.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
+  <link rel="stylesheet" href="assets/model-showcase.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/micromodal@0.4.10/dist/micromodal.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#hero-title">Pular para o produto</a>
@@ -194,9 +513,9 @@
           <figcaption class="media-caption mono">Acabamento texturizado / Preto</figcaption>
         </figure>
         <header class="site-header">
-          <a class="identity" href="#produto" aria-label="POWER 01, início">
+          <a class="identity" href="#produto" aria-label="VYON, início">
             <span class="identity-mark"><svg class="icon" aria-hidden="true"><use href="#bolt"/></svg></span>
-            <span class="identity-word">POWER<span>/ 01</span></span>
+            <span class="identity-word">VYON</span>
           </a>
           <p class="header-note mono">Energia em movimento.</p>
           <a class="header-link mono" href="#explorar" data-explore>Conheça o produto <svg class="icon" aria-hidden="true"><use href="#arrow-down"/></svg></a>
@@ -216,7 +535,7 @@
             </div>
           </div>
           <div class="product-meta mono" aria-hidden="true" inert><p>Essencial por natureza.<b>Portátil por design.</b></p><span class="index-number">01</span></div>
-          <span class="side-note mono" aria-hidden="true">Design em cada detalhe — POWER / 01</span>
+          <span class="side-note mono" aria-hidden="true">Design em cada detalhe — VYON</span>
           <div class="connection-note scroll-scene" inert aria-hidden="true">
             <p class="mono">02 / A conexão</p>
             <h2>Por perto.<br>Para ir além.</h2>
@@ -233,18 +552,174 @@
         </footer>
       </div>
     </section>
+    <section class="benefits" id="tecnologia" aria-labelledby="benefits-title">
+      <div class="benefits-rail mono"><span>Tecnologia que acompanha</span><span><i aria-hidden="true"></i> Precisão em cada detalhe</span></div>
+      <div class="benefits-grid">
+        <figure class="benefits-photo">
+          <img class="benefits-image" src="raw-files/powerbank-editorial.png" alt="Detalhe do power bank preto: superfície texturizada, bordas arredondadas e indicador de carga em quatro níveis." width="1122" height="1402" loading="lazy" decoding="async">
+          <div class="benefits-photo-label mono" aria-hidden="true"><span>VYON — Estudo de superfície</span><svg class="icon"><use href="#arrow-up-right"/></svg></div>
+          <figcaption class="benefits-photo-caption"><span class="benefits-surface mono">Acabamento texturizado</span><span class="benefits-photo-index" aria-hidden="true">FIG. 01</span></figcaption>
+        </figure>
+        <div class="benefits-content">
+          <p class="benefits-eyebrow benefits-reveal mono">Design de precisão / Energia portátil</p>
+          <h2 class="benefits-title benefits-reveal" id="benefits-title"><span>Tecnologia</span><span class="outline">que você</span><span>sente.</span></h2>
+          <p class="benefits-description benefits-reveal">Microtextura na superfície. Carga à vista. Liberdade no bolso. Um power bank que une presença e praticidade para manter por perto tudo o que move o seu dia.</p>
+          <dl class="benefits-specs benefits-reveal">
+            <div class="benefits-spec"><dt class="mono">Níveis no indicador</dt><dd><span class="benefits-value">04</span><p>Uma leitura direta da carga. Menos dúvida, mais controle.</p></dd></div>
+            <div class="benefits-spec"><dt class="mono">Essencial. Todo dia.</dt><dd><span class="benefits-value">01</span><p>Design portátil para levar energia junto com os seus planos.</p></dd></div>
+          </dl>
+          <button class="benefits-cta benefits-reveal mono" type="button" data-buy aria-haspopup="dialog">Leve essa energia com você <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></button>
+        </div>
+      </div>
+    </section>
+    <section class="journey" id="seu-ritmo" aria-labelledby="journey-title">
+      <div class="journey-inner">
+        <div class="journey-rail mono"><span>Feito para a vida lá fora</span><span><svg class="icon" aria-hidden="true"><use href="#bolt"/></svg> Energia para ir além</span></div>
+        <div class="journey-heading">
+          <h2 class="journey-title journey-reveal" id="journey-title"><span>O mundo</span><span>não espera<em>.</em></span></h2>
+          <p class="journey-intro journey-reveal">O próximo destino. Aquela chamada. Uma ideia que chega sem avisar. <strong>Leve energia para acompanhar o que vem pela frente.</strong></p>
+        </div>
+        <div class="journey-grid">
+          <div class="journey-usecases journey-reveal">
+            <div class="journey-index mono"><span>Um parceiro. Muitos caminhos.</span><span aria-hidden="true"><b data-journey-index>01</b> / 03</span></div>
+            <div class="journey-item is-active" data-journey-label="No ritmo da cidade">
+              <h3><button class="journey-toggle" id="journey-city-button" type="button" aria-expanded="true" aria-controls="journey-city"><span aria-hidden="true">01</span><span class="journey-toggle-title">Na cidade.</span><span class="journey-plus" aria-hidden="true"></span></button></h3>
+              <div class="journey-answer" id="journey-city" role="region" aria-labelledby="journey-city-button"><div><p>O mapa até a próxima reunião. A mensagem de quem importa. Entre um compromisso e outro, tenha energia por perto para continuar conectado.</p></div></div>
+            </div>
+            <div class="journey-item" data-journey-label="A caminho do próximo destino">
+              <h3><button class="journey-toggle" id="journey-travel-button" type="button" aria-expanded="false" aria-controls="journey-travel"><span aria-hidden="true">02</span><span class="journey-toggle-title">No caminho.</span><span class="journey-plus" aria-hidden="true"></span></button></h3>
+              <div class="journey-answer" id="journey-travel" role="region" aria-labelledby="journey-travel-button" aria-hidden="true" inert><div><p>O bilhete no celular. A playlist da viagem. A foto de um lugar novo. Coloque na bagagem a liberdade de carregar sem procurar uma tomada.</p></div></div>
+            </div>
+            <div class="journey-item" data-journey-label="Mais espaço para os seus planos">
+              <h3><button class="journey-toggle" id="journey-time-button" type="button" aria-expanded="false" aria-controls="journey-time"><span aria-hidden="true">03</span><span class="journey-toggle-title">No seu tempo.</span><span class="journey-plus" aria-hidden="true"></span></button></h3>
+              <div class="journey-answer" id="journey-time" role="region" aria-labelledby="journey-time-button" aria-hidden="true" inert><div><p>Estenda o café. Mude a rota. Fique para o pôr do sol. Leve uma reserva de energia para dar mais espaço aos planos que surgem no meio do dia.</p></div></div>
+            </div>
+          </div>
+          <figure class="journey-photo">
+            <div class="journey-visual">
+              <img class="journey-image is-current" src="raw-files/powerbank-journey.png" alt="Power bank preto conectado a um smartphone sobre uma superfície escura, iluminados pela luz lateral de uma janela." width="1536" height="1024" loading="lazy" decoding="async">
+              <img class="journey-image" data-src="raw-files/powerbank-journey-travel.png" alt="Power bank e smartphone conectados sobre a mesa de um trem, com uma paisagem iluminada pela janela." width="1536" height="1024" decoding="async" aria-hidden="true">
+              <img class="journey-image" data-src="raw-files/powerbank-journey-sunset.png" alt="Power bank e smartphone conectados sobre uma mesa de pedra ao ar livre, sob a luz dourada do pôr do sol." width="1536" height="1024" decoding="async" aria-hidden="true">
+            </div>
+            <div class="journey-photo-top mono" aria-hidden="true"><span>VYON — Em boa companhia</span><span class="journey-photo-mark"><svg class="icon"><use href="#bolt"/></svg></span></div>
+            <figcaption class="journey-photo-caption mono"><span data-journey-caption>No ritmo da cidade</span><span>Design para acompanhar.</span></figcaption>
+          </figure>
+        </div>
+        <div class="journey-bottom journey-reveal">
+          <p class="journey-signoff">Seus planos merecem essa energia.<span class="mono">VYON — Leve com você.</span></p>
+          <button class="button journey-buy mono" type="button" data-buy aria-haspopup="dialog">Quero seguir conectado <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></button>
+        </div>
+      </div>
+    </section>
+    <section class="models" id="modelos" aria-labelledby="models-title">
+  <div class="models-inner">
+    <div class="models-rail mono"><span>Encontre a sua energia</span><span>Uma família. Três formas de seguir.</span></div>
+    <div class="models-heading"><h2 class="models-title" id="models-title">Seu ritmo.<span class="outline">Sua energia.</span></h2><p class="models-intro">Três formas de levar energia com você. Encontre a que combina com o seu dia.</p></div>
+    <div class="models-carousel" aria-label="Modelos VYON">
+    <div class="models-grid"><article class="model-card model-card-essential" id="model-panel-essential" aria-labelledby="model-essential-title">
+  <button class="model-art model-image-trigger" type="button" data-details="Essential" aria-label="Ver detalhes do VYON Essential" aria-controls="model-details-modal" aria-haspopup="dialog"><img class="model-image" src="raw-files/powerbank-essential-cutout.png" alt="Power bank Essential cinza claro, com acabamento liso e quatro indicadores luminosos." width="1536" height="1024" loading="lazy" decoding="async"></button>
+  <h3 id="model-essential-title"><span>VYON</span> Essential</h3>
+  <p class="model-description">Energia extra para os pequenos trajetos. Simples de levar, fácil de combinar.</p>
+  <p class="model-price" aria-label="129 reais e 90 centavos"><small>R$</small>129<span class="model-cents">,90</span></p>
+  <p class="model-price-note mono">Preço ilustrativo / Compra única</p>
+  <div class="model-actions"><button class="button model-select" type="button" data-buy data-model="Essential" aria-haspopup="dialog">Comprar<span class="sr-only"> VYON Essential</span> <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></button><button class="model-details mono" type="button" data-details="Essential" aria-controls="model-details-modal" aria-haspopup="dialog">Ver detalhes<span class="sr-only"> do VYON Essential</span></button></div>
+</article>
+<article class="model-card model-card-plus" id="model-panel-plus" aria-labelledby="model-plus-title">
+  <button class="model-art model-image-trigger" type="button" data-details="Plus" aria-label="Ver detalhes do VYON Plus" aria-controls="model-details-modal" aria-haspopup="dialog"><img class="model-image" src="raw-files/powerbank-plus-cutout.png" alt="Power bank Plus grafite com superfície fosca e painel de indicadores luminosos." width="1536" height="1024" loading="lazy" decoding="async"></button>
+  <h3 id="model-plus-title"><span>VYON</span> Plus</h3>
+  <p class="model-description">Um parceiro para a rotina em movimento, com a sobriedade do acabamento grafite.</p>
+  <p class="model-price" aria-label="199 reais e 90 centavos"><small>R$</small>199<span class="model-cents">,90</span></p>
+  <p class="model-price-note mono">Preço ilustrativo / Compra única</p>
+  <div class="model-actions"><button class="button model-select" type="button" data-buy data-model="Plus" aria-haspopup="dialog">Comprar<span class="sr-only"> VYON Plus</span> <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></button><button class="model-details mono" type="button" data-details="Plus" aria-controls="model-details-modal" aria-haspopup="dialog">Ver detalhes<span class="sr-only"> do VYON Plus</span></button></div>
+</article>
+<article class="model-card model-card-pro" id="model-panel-pro" aria-labelledby="model-pro-title">
+  <span class="model-badge">Máximo potencial</span>
+  <button class="model-art model-image-trigger" type="button" data-details="Pro" aria-label="Ver detalhes do VYON Pro" aria-controls="model-details-modal" aria-haspopup="dialog"><img class="model-image" src="raw-files/powerbank-pro-cutout.png" alt="Power bank Pro preto com superfície texturizada e indicador de carga em quatro níveis." width="1815" height="867" loading="lazy" decoding="async"></button>
+  <h3 id="model-pro-title"><span>VYON</span> Pro</h3>
+  <p class="model-description">Textura marcante e design de presença. O modelo que dá vida aos nossos filmes.</p>
+  <p class="model-price" aria-label="299 reais e 90 centavos"><small>R$</small>299<span class="model-cents">,90</span></p>
+  <p class="model-price-note mono">Preço ilustrativo / Compra única</p>
+  <div class="model-actions"><button class="button model-select" type="button" data-buy data-model="Pro" aria-haspopup="dialog">Comprar<span class="sr-only"> VYON Pro</span> <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></button><button class="model-details mono" type="button" data-details="Pro" aria-controls="model-details-modal" aria-haspopup="dialog">Ver detalhes<span class="sr-only"> do VYON Pro</span></button></div>
+</article></div>
+      <div class="models-carousel-controls"><div class="models-pagination"></div></div>
+    </div>
+    <div class="models-footnote mono"><p>Conceitos de linha e preços ilustrativos. Disponibilidade em breve.</p><p>VYON — Energia para seguir.</p></div>
+    <p class="models-status" role="status"></p>
+  </div>
+</section>
+    <section class="energy" id="energia-sem-pausa" aria-labelledby="energy-title">
+      <video class="energy-video" id="energy-video" muted loop playsinline preload="none" poster="raw-files/frame-final.png" aria-hidden="true" disablepictureinpicture>
+        <source src="raw-files/Power_bank_charging_smartphone_20260922234940.mp4" type="video/mp4">
+      </video>
+      <div class="energy-rail mono"><span>Sua próxima conexão</span><span><svg class="icon" aria-hidden="true"><use href="#bolt"/></svg> VYON</span></div>
+      <div class="energy-content">
+        <div class="energy-copy">
+          <p class="energy-kicker mono">Uma reserva de possibilidades.</p>
+          <h2 class="energy-title" id="energy-title"><span>O dia segue.</span><span class="energy-outline">A energia</span><span>vai junto<em>.</em></span></h2>
+          <p class="energy-description">Para a conversa que se estende, a rota que muda e tudo o que ainda pode acontecer.</p>
+        </div>
+        <div class="energy-card">
+          <span class="energy-card-border" aria-hidden="true"></span>
+          <div class="energy-card-inner">
+            <div class="energy-card-top mono"><span>Liberdade para continuar</span><span class="energy-card-icon"><svg class="icon" aria-hidden="true"><use href="#bolt"/></svg></span></div>
+            <h3>Mais perto dos planos.<br>Mais longe da tomada.</h3>
+            <p>Tenha uma reserva de energia por perto e siga conectado ao que importa. Em casa, na rua ou no próximo destino.</p>
+            <button class="button energy-cta" type="button" data-buy aria-haspopup="dialog">Leve essa liberdade <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="energy-footer mono"><span>Energia portátil. Possibilidades em movimento.</span><button class="energy-playback mono" type="button" aria-controls="energy-video" aria-pressed="false">Reproduzir vídeo <span aria-hidden="true">▷</span></button></div>
+    </section>
   </main>
+  <footer class="portal-footer" aria-label="Rodapé do portal VYON">
+    <div class="portal-footer-inner">
+      <div class="portal-footer-rail mono"><span>VYON — Energia em movimento.</span><span class="portal-footer-signal">Siga conectado.</span></div>
+      <div class="portal-footer-content">
+        <div>
+          <a class="portal-footer-brand" href="#produto" data-footer-scroll aria-label="VYON, voltar ao início"><span class="identity-mark"><svg class="icon" aria-hidden="true"><use href="#bolt"/></svg></span><span class="portal-footer-word">VYON</span></a>
+          <p class="portal-footer-tagline">Energia para seguir.<br><span>Onde a vida acontecer.</span></p>
+        </div>
+        <nav class="portal-footer-nav" aria-labelledby="footer-nav-title">
+          <h2 class="mono" id="footer-nav-title">Explore o produto</h2>
+          <ul><li><a href="#produto" data-footer-scroll>O essencial</a></li><li><a href="#tecnologia" data-footer-scroll>Tecnologia</a></li><li><a href="#seu-ritmo" data-footer-scroll>Seu ritmo</a></li><li><a href="#energia-sem-pausa" data-footer-scroll>Sua próxima conexão</a></li></ul>
+        </nav>
+        <a class="portal-footer-top mono" href="#produto" data-footer-scroll><span class="portal-footer-top-mark"><svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></span><span>Voltar ao topo</span></a>
+      </div>
+      <div class="portal-footer-bottom mono"><span>© <span data-footer-year>2026</span> VYON. Todos os direitos reservados.</span><span>Design em cada detalhe.</span></div>
+    </div>
+  </footer>
   <dialog id="purchase-dialog" aria-labelledby="purchase-title" aria-describedby="purchase-description">
-    <span class="mono">POWER / 01</span>
+    <span class="mono">VYON</span>
     <h2 id="purchase-title">Mais energia.<br>Em breve, com você.</h2>
     <p id="purchase-description">A compra online ainda não está disponível nesta página.</p>
     <form method="dialog"><button class="button button-primary">Continuar explorando <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></button></form>
   </dialog>
+  <div class="product-modal" id="model-details-modal" aria-hidden="true">
+  <div class="product-modal-overlay" tabindex="-1" data-micromodal-close>
+    <div class="product-modal-panel" role="dialog" aria-modal="true" aria-labelledby="model-details-title" aria-describedby="model-details-lead" data-lenis-prevent>
+      <button class="product-modal-close" type="button" aria-label="Fechar detalhes" data-micromodal-close>×</button>
+      <div class="product-modal-grid">
+        <div class="product-modal-copy"><p class="product-modal-kicker mono" data-product-kicker></p><h2 id="model-details-title" tabindex="-1"></h2><p class="product-modal-lead" id="model-details-lead"></p><p class="product-modal-description" data-product-story></p><ul class="product-modal-benefits"></ul></div>
+        <div class="product-modal-summary">
+          <figure class="product-modal-visual"><img class="product-modal-image" alt=""><figcaption class="mono" data-product-finish></figcaption></figure>
+          <div class="product-modal-purchase">
+            <p class="model-price" data-product-price></p>
+            <p class="product-modal-note">Preço ilustrativo. Este modelo faz parte do conceito da linha VYON; a compra online ainda não está disponível.</p>
+            <button class="button product-modal-buy" type="button" data-buy data-model="Essential" aria-haspopup="dialog">Quero o meu VYON <svg class="icon" aria-hidden="true"><use href="#arrow-up-right"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       'use strict';
       // Set the real checkout URL here when the store is ready.
-      const CONFIG = { checkoutUrl: '', seekTolerance: 1 / 60 };
+      const CONFIG = {
+        checkoutUrl: '', seekTolerance: 1 / 120, scrollLerp: .1,
+        connectionPace: { start: .38, end: .72, lead: .12 }
+      };
       const section = document.querySelector('.experience');
       const hero = document.querySelector('.hero');
       const video = document.querySelector('#product-video');
@@ -261,14 +736,15 @@
       const closing = document.querySelector('.end-note');
       let trigger, intro, scrollAnimation, duration = 0, targetTime = 0;
       let sceneContext, sceneTimeline;
+      let smoothScroll;
       let seekFrame = 0, scrollFrame = 0, previousChapter = -1;
       let failed = false;
       const playhead = { progress: 0 };
       video.muted = true;
       video.pause();
 
-      // Only one seek can be in flight. Pending scroll updates are coalesced
-      // into the latest target and applied after the decoder finishes seeking.
+      // Coalesce updates while the decoder is busy, then immediately seek the
+      // latest target. An extra RAF after seeked used to cost a display frame.
       function scheduleSeek() {
         if (!seekFrame && duration && !failed) seekFrame = requestAnimationFrame(seek);
       }
@@ -280,7 +756,11 @@
         try { video.currentTime = nextTime; }
         catch { /* A later loadeddata/progress event retries unavailable media. */ }
       }
-      video.addEventListener('seeked', scheduleSeek);
+      video.addEventListener('seeked', () => {
+        if (seekFrame) cancelAnimationFrame(seekFrame);
+        seekFrame = 0;
+        if (!failed) seek();
+      });
       video.addEventListener('loadeddata', () => {
         video.removeAttribute('poster');
         scheduleSeek();
@@ -288,9 +768,22 @@
       video.addEventListener('progress', scheduleSeek);
       video.addEventListener('play', () => video.pause());
 
+      function videoProgress(progress) {
+        const { start, end, lead } = CONFIG.connectionPace;
+        if (progress <= start) return progress;
+        // Advance more footage per scroll pixel during the connection, then
+        // coast into the final frame. Smoothstep keeps velocity continuous at
+        // both joins; a position-only mapping behaves identically in reverse.
+        const smoothstep = value => value * value * (3 - 2 * value);
+        const offset = progress < end
+          ? smoothstep((progress - start) / (end - start))
+          : 1 - smoothstep((progress - end) / (1 - end));
+        return progress + lead * offset;
+      }
+
       function renderProgress(value) {
         const progress = Math.max(0, Math.min(1, value));
-        targetTime = progress * Math.max(0, duration - .04);
+        targetTime = videoProgress(progress) * Math.max(0, duration - .04);
         scheduleSeek();
         const chapter = progress < .32 ? 0 : progress < .68 ? 1 : 2;
         if (chapter !== previousChapter) {
@@ -299,7 +792,7 @@
           previousChapter = chapter;
         }
         hero.classList.toggle('is-complete', progress > .84);
-        // Visual choreography and video share the same smoothed playhead.
+        // Text keeps its chapter timing; only the footage's pace is adjusted.
         sceneTimeline?.progress(progress);
         const animated = hasGSAP && !motion.matches && !failed;
         setSceneAccess(opening, !animated || progress < .26);
@@ -323,18 +816,18 @@
           sceneTimeline = gsap.timeline({ paused: true, defaults: { ease: 'power2.inOut' } })
             .to({}, { duration: 1 }, 0)
             .to('.media-stage', { x: 0, duration: .3 }, .04)
-            .to('.copy', { y: -64, autoAlpha: 0, filter: 'blur(10px)', duration: .22 }, .04)
-            .to('.site-header', { y: -24, autoAlpha: 0, filter: 'blur(5px)', duration: .17 }, .08)
-            .fromTo('.product-meta', { y: 16, autoAlpha: 0, filter: 'blur(7px)' },
-              { y: 0, autoAlpha: 1, filter: 'blur(0px)', duration: .12 }, .38)
-            .to('.product-meta', { y: -18, autoAlpha: 0, filter: 'blur(6px)', duration: .12 }, .58)
-            .to('.media-caption', { y: -28, autoAlpha: 0, filter: 'blur(5px)', duration: .18 }, .22)
-            .to('.side-note', { y: -56, autoAlpha: 0, filter: 'blur(5px)', duration: .2 }, .24)
-            .fromTo('.connection-note', { y: 36, autoAlpha: 0, filter: 'blur(9px)' },
-              { y: 0, autoAlpha: 1, filter: 'blur(0px)', duration: .12 }, .38)
-            .to('.connection-note', { y: -36, autoAlpha: 0, filter: 'blur(9px)', duration: .12 }, .58)
-            .fromTo('.end-note', { y: 40, autoAlpha: 0, filter: 'blur(10px)' },
-              { y: 0, autoAlpha: 1, filter: 'blur(0px)', duration: .14 }, .8);
+            .to('.copy', { y: -64, autoAlpha: 0, duration: .22 }, .04)
+            .to('.site-header', { y: -24, autoAlpha: 0, duration: .17 }, .08)
+            .fromTo('.product-meta', { y: 16, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, duration: .12 }, .38)
+            .to('.product-meta', { y: -18, autoAlpha: 0, duration: .12 }, .58)
+            .to('.media-caption', { y: -28, autoAlpha: 0, duration: .18 }, .22)
+            .to('.side-note', { y: -56, autoAlpha: 0, duration: .2 }, .24)
+            .fromTo('.connection-note', { y: 36, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, duration: .12 }, .38)
+            .to('.connection-note', { y: -36, autoAlpha: 0, duration: .12 }, .58)
+            .fromTo('.end-note', { y: 40, autoAlpha: 0 },
+              { y: 0, autoAlpha: 1, duration: .14 }, .8);
         }, hero);
       }
 
@@ -352,7 +845,31 @@
         if (!scrollFrame) scrollFrame = requestAnimationFrame(nativeUpdate);
       }
 
+      // Lenis and ScrollTrigger use one clock; avoid stacking two smoothing
+      // interpolations, which makes direction changes feel delayed.
+      function tickScroll(time) { smoothScroll?.raf(time * 1000); }
+      function destroySmoothScroll() {
+        if (!smoothScroll) return;
+        gsap.ticker.remove(tickScroll);
+        smoothScroll.destroy();
+        smoothScroll = undefined;
+      }
+      function createSmoothScroll() {
+        if (!window.Lenis) return;
+        smoothScroll = new Lenis({
+          autoRaf: false,
+          lerp: CONFIG.scrollLerp,
+          smoothWheel: true,
+          syncTouch: false,
+          prevent: node => node.closest('dialog') !== null
+        });
+        smoothScroll.on('scroll', ScrollTrigger.update);
+        gsap.ticker.lagSmoothing(0);
+        gsap.ticker.add(tickScroll, false, true);
+      }
+
       function setupMotion() {
+        destroySmoothScroll();
         trigger?.kill();
         scrollAnimation?.kill();
         intro?.revert();
@@ -365,6 +882,7 @@
         if (isStatic) { renderProgress(0); return; }
         if (hasGSAP) {
           gsap.registerPlugin(ScrollTrigger);
+          createSmoothScroll();
           createSceneTimeline();
           intro = gsap.context(() => {
             gsap.timeline({ defaults: { ease: 'expo.out' } })
@@ -380,7 +898,7 @@
           });
           trigger = ScrollTrigger.create({
             trigger: section, start: 'top top', end: 'bottom bottom',
-            animation: scrollAnimation, scrub: .24, invalidateOnRefresh: true
+            animation: scrollAnimation, scrub: smoothScroll ? true : .35, invalidateOnRefresh: true
           });
           ScrollTrigger.refresh();
         } else {
@@ -388,6 +906,278 @@
           window.addEventListener('scroll', onNativeScroll, { passive: true });
           nativeUpdate();
         }
+      }
+
+      function setupBenefitsMotion() {
+        if (!hasGSAP) return;
+        const benefits = document.querySelector('.benefits');
+        // A separate responsive context preserves the hero's existing scrub.
+        // GSAP reverts inline styles automatically when reduced motion changes.
+        gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+          gsap.from(benefits.querySelectorAll('.benefits-reveal'), {
+            y: 42, autoAlpha: 0, duration: 1.05, stagger: .11, ease: 'power3.out',
+            scrollTrigger: {
+              trigger: benefits.querySelector('.benefits-content'),
+              start: 'top 88%', toggleActions: 'play none none reverse'
+            }
+          });
+          gsap.from(benefits.querySelector('.benefits-photo'), {
+            clipPath: 'inset(9% 0 9% 0)', autoAlpha: 0, duration: 1.4, ease: 'power3.out',
+            scrollTrigger: {
+              trigger: benefits, start: 'top 88%', toggleActions: 'play none none reverse'
+            }
+          });
+          gsap.fromTo(benefits.querySelector('.benefits-image'), { yPercent: -3 }, {
+            yPercent: 3, ease: 'none',
+            scrollTrigger: { trigger: benefits, start: 'top bottom', end: 'bottom top', scrub: true }
+          });
+        });
+      }
+
+      function setupJourney() {
+        const journey = document.querySelector('.journey');
+        const items = [...journey.querySelectorAll('.journey-item')];
+        const buttons = items.map(item => item.querySelector('.journey-toggle'));
+        const caption = journey.querySelector('[data-journey-caption]');
+        const index = journey.querySelector('[data-journey-index]');
+        const photos = [...journey.querySelectorAll('.journey-image')];
+        const photoLoads = new Map();
+        let photoRequest = 0;
+        function loadPhoto(position) {
+          if (!photoLoads.has(position)) {
+            const photo = photos[position];
+            if (!photo.getAttribute('src')) photo.src = photo.dataset.src;
+            photoLoads.set(position, photo.decode().catch(error => {
+              photoLoads.delete(position);
+              throw error;
+            }));
+          }
+          return photoLoads.get(position);
+        }
+        function showPhoto(position) {
+          const request = ++photoRequest;
+          // Decode before fading; slower responses must not replace a newer
+          // selection. On failure the previous photograph and caption remain.
+          loadPhoto(position).then(() => {
+            if (request !== photoRequest) return;
+            photos.forEach((photo, index) => {
+              photo.classList.toggle('is-current', index === position);
+              photo.setAttribute('aria-hidden', String(index !== position));
+            });
+            caption.textContent = items[position].dataset.journeyLabel;
+            if (hasGSAP && !motion.matches) {
+              gsap.fromTo(caption, { y: 8, opacity: 0 }, {
+                y: 0, opacity: 1, duration: .85, ease: 'expo.out', overwrite: true
+              });
+            }
+          }).catch(() => { /* Keep the last complete scene when an image is unavailable. */ });
+        }
+        function selectUsecase(selected) {
+          if (buttons[selected].getAttribute('aria-expanded') === 'true') return;
+          items.forEach((item, position) => {
+            const active = position === selected;
+            item.classList.toggle('is-active', active);
+            buttons[position].setAttribute('aria-expanded', String(active));
+            const panel = item.querySelector('.journey-answer');
+            panel.inert = !active;
+            if (active) panel.removeAttribute('aria-hidden');
+            else panel.setAttribute('aria-hidden', 'true');
+          });
+          showPhoto(selected);
+          index.textContent = String(selected + 1).padStart(2, '0');
+        }
+        buttons.forEach((button, position) => {
+          button.addEventListener('click', () => selectUsecase(position));
+          button.addEventListener('keydown', event => {
+            let next;
+            if (event.key === 'ArrowDown') next = (position + 1) % buttons.length;
+            else if (event.key === 'ArrowUp') next = (position + buttons.length - 1) % buttons.length;
+            else if (event.key === 'Home') next = 0;
+            else if (event.key === 'End') next = buttons.length - 1;
+            else return;
+            event.preventDefault();
+            buttons[next].focus();
+          });
+        });
+        const photoObserver = new IntersectionObserver(entries => {
+          if (!entries.some(entry => entry.isIntersecting)) return;
+          photos.forEach((_, position) => loadPhoto(position).catch(() => {}));
+          photoObserver.disconnect();
+        }, { rootMargin: '400px' });
+        photoObserver.observe(journey);
+        if (!hasGSAP) return;
+        gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+          journey.querySelectorAll('.journey-reveal').forEach(element => {
+            gsap.from(element, {
+              y: 36, autoAlpha: 0, duration: 1, ease: 'power3.out',
+              scrollTrigger: { trigger: element, start: 'top 92%', toggleActions: 'play none none reverse' }
+            });
+          });
+          gsap.from(journey.querySelector('.journey-photo'), {
+            scale: .96, autoAlpha: 0, duration: 1.25, ease: 'power3.out',
+            scrollTrigger: { trigger: journey.querySelector('.journey-photo'), start: 'top 90%', toggleActions: 'play none none reverse' }
+          });
+          gsap.fromTo(journey.querySelector('.journey-visual'), { yPercent: -2 }, {
+            yPercent: 2, ease: 'none',
+            scrollTrigger: { trigger: journey, start: 'top bottom', end: 'bottom top', scrub: true }
+          });
+          return () => {
+            gsap.killTweensOf(caption);
+            gsap.set(caption, { clearProps: 'transform,opacity' });
+          };
+        });
+      }
+
+      let foldFitFrame = 0;
+      function requestFoldFit() {
+        if (foldFitFrame) return;
+        foldFitFrame = requestAnimationFrame(() => {
+          foldFitFrame = 0;
+          const folds = [...document.querySelectorAll('.benefits, .journey, .models, .energy')];
+          folds.forEach(fold => fold.classList.remove('fold-natural'));
+          const layoutTop = element => {
+            let top = 0;
+            for (let node = element; node; node = node.offsetParent) top += node.offsetTop;
+            return top;
+          };
+          // A safety valve for enlarged text/zoom. Never clip readable content
+          // or create a second scrolling surface inside a chapter.
+          const overflowing = folds.filter(fold => {
+            const bottom = layoutTop(fold) + fold.offsetHeight - 4;
+            return [...fold.querySelectorAll('h2, h3, p, .button, .benefits-cta, .model-actions, .model-caption, .journey-usecases, .energy-footer, .models-footnote')].some(element => {
+              if (!element.offsetWidth || !element.offsetHeight || element.closest('[hidden], [inert]')) return false;
+              if (element.tagName === 'P' && !element.classList.contains('model-price') && element.scrollHeight > element.clientHeight + 2) return true;
+              return layoutTop(element) + Math.max(element.offsetHeight, element.scrollHeight) > bottom + 4;
+            });
+          });
+          overflowing.forEach(fold => fold.classList.add('fold-natural'));
+          if (hasGSAP) ScrollTrigger.refresh();
+          smoothScroll?.resize();
+        });
+      }
+
+      function setupModels() {
+        const models = document.querySelector('.models');
+        const carousel = models.querySelector('.models-carousel');
+        const track = models.querySelector('.models-grid');
+        const slides = [...track.querySelectorAll('.model-card')];
+        const mobile = matchMedia('(max-width: 767px)');
+        let productSwiper;
+        let selectedProduct = 0;
+        function syncProductAccess(swiper) {
+          slides.forEach((slide, index) => {
+            slide.inert = index !== swiper.activeIndex;
+            slide.setAttribute('aria-hidden', String(slide.inert));
+          });
+        }
+        function syncProductCarousel() {
+          if (mobile.matches && window.Swiper && !productSwiper) {
+            carousel.classList.add('swiper');
+            track.classList.add('swiper-wrapper');
+            slides.forEach(slide => slide.classList.add('swiper-slide'));
+            productSwiper = new Swiper(carousel, {
+              initialSlide: selectedProduct,
+              slidesPerView: 1,
+              spaceBetween: 24,
+              speed: motion.matches ? 0 : 400,
+              grabCursor: true,
+              preventClicks: true,
+              preventClicksPropagation: true,
+              keyboard: { enabled: true, onlyInViewport: true },
+              pagination: {
+                el: carousel.querySelector('.models-pagination'),
+                clickable: true,
+                bulletElement: 'button'
+              },
+              a11y: {
+                containerRoleDescriptionMessage: 'Carrossel de produtos',
+                itemRoleDescriptionMessage: 'Produto',
+                slideLabelMessage: '{{index}} de {{slidesLength}}',
+                paginationBulletMessage: 'Ir para o produto {{index}}'
+              },
+              on: {
+                init: syncProductAccess,
+                slideChange(swiper) {
+                  selectedProduct = swiper.activeIndex;
+                  syncProductAccess(swiper);
+                },
+                resize: requestFoldFit
+              }
+            });
+          } else if (!mobile.matches && productSwiper) {
+            productSwiper.destroy(true, true);
+            productSwiper = null;
+            carousel.classList.remove('swiper');
+            track.classList.remove('swiper-wrapper');
+            slides.forEach(slide => {
+              slide.classList.remove('swiper-slide');
+              slide.inert = false;
+              slide.removeAttribute('aria-hidden');
+              slide.removeAttribute('aria-roledescription');
+              slide.removeAttribute('aria-label');
+              slide.removeAttribute('role');
+            });
+          }
+          requestFoldFit();
+        }
+        mobile.addEventListener('change', syncProductCarousel);
+        motion.addEventListener('change', () => {
+          if (productSwiper) productSwiper.params.speed = motion.matches ? 0 : 400;
+        });
+        syncProductCarousel();
+        const details = document.querySelector('#model-details-modal');
+        const products = [{"key":"essential","name":"Essential","label":"01 / O essencial","tag":"Simples por natureza","description":"Energia extra para os pequenos trajetos. Simples de levar, fácil de combinar.","price":"129","image":"powerbank-essential-cutout.png","alt":"Power bank Essential cinza claro, com acabamento liso e quatro indicadores luminosos.","finish":"Cinza névoa / Superfície lisa","lead":"Leve só o que faz diferença.","story":"O mapa até o café. A mensagem antes de sair. Para os momentos em que uma reserva de energia faz parte do básico, o Essential acompanha você com um visual leve e sem excessos.","benefits":[["Discreto por escolha","O cinza claro e o acabamento fosco combinam com os objetos que já fazem parte do seu dia."],["Leitura sem complicação","Quatro pequenos pontos de luz deixam o indicador integrado ao desenho do produto."],["O começo da sua próxima conexão","Uma opção para quem procura um power bank com linguagem simples e foco no essencial."]]},{"key":"plus","name":"Plus","label":"02 / Um passo além","tag":"Equilíbrio em cada detalhe","description":"Um parceiro para a rotina em movimento, com a sobriedade do acabamento grafite.","price":"199","image":"powerbank-plus-cutout.png","alt":"Power bank Plus grafite com superfície fosca e painel de indicadores luminosos.","finish":"Grafite / Acabamento fosco","lead":"Um dia cheio pede boa companhia.","story":"Do primeiro compromisso ao encontro depois do trabalho, o Plus traduz o ritmo da cidade em um design sóbrio. A superfície grafite e o painel escuro formam um conjunto que encontra espaço na sua rotina.","benefits":[["Presença na medida","O grafite traz uma aparência discreta, com bordas suaves e atenção ao acabamento."],["Detalhes que conversam","Os indicadores luminosos ficam reunidos em uma faixa escura, mantendo a superfície visualmente limpa."],["Seu meio-termo favorito","Para quem se identifica com o minimalismo e quer um desenho com mais presença."]]},{"key":"pro","name":"Pro","label":"03 / A expressão máxima","tag":"O destaque do portal","description":"Textura marcante e design de presença. O modelo que dá vida aos nossos filmes.","price":"299","image":"powerbank-pro-cutout.png","alt":"Power bank Pro preto com superfície texturizada e indicador de carga em quatro níveis.","finish":"Preto / Superfície texturizada","lead":"A energia também tem personalidade.","story":"Você já viu o Pro em movimento por aqui. Agora, veja de perto o encontro entre a textura da superfície, o preto e o painel de carga. É a expressão mais marcante da família VYON, pensada para acompanhar o que move o seu dia.","benefits":[["Textura que chama para perto","O acabamento texturizado cria profundidade e dá ao produto uma identidade própria."],["Carga em evidência","O painel com marcações em quatro níveis faz parte do desenho e destaca a leitura da carga."],["O protagonista da família","O mesmo modelo apresentado nas imagens e nos filmes do portal, para quem se identificou com cada detalhe."]]}];
+        models.querySelectorAll('[data-details]').forEach(button => button.addEventListener('click', () => {
+          if (!window.MicroModal) {
+            models.querySelector('.models-status').textContent = 'Não foi possível carregar os detalhes. Atualize a página para tentar novamente.';
+            requestFoldFit();
+            return;
+          }
+          const product = products.find(item => item.name === button.dataset.details);
+          details.querySelector('#model-details-title').textContent = 'VYON ' + product.name;
+          details.querySelector('#model-details-lead').textContent = product.lead;
+          details.querySelector('[data-product-story]').textContent = product.story;
+          details.querySelector('[data-product-kicker]').textContent = product.label;
+          details.querySelector('[data-product-finish]').textContent = product.finish;
+          const image = details.querySelector('.product-modal-image');
+          image.src = 'raw-files/' + product.image;
+          image.alt = product.alt;
+          details.querySelector('[data-product-price]').textContent = 'R$ ' + product.price + ',90';
+          const buy = details.querySelector('[data-buy]');
+          buy.dataset.model = product.name;
+          buy.firstChild.textContent = 'Quero o meu VYON ' + product.name + ' ';
+          details.querySelector('.product-modal-benefits').replaceChildren(...product.benefits.map(([title, description]) => {
+            const item = document.createElement('li');
+            const heading = document.createElement('strong');
+            const copy = document.createElement('span');
+            heading.textContent = title;
+            copy.textContent = description;
+            item.append(heading, copy);
+            return item;
+          }));
+          const panel = details.querySelector('.product-modal-panel');
+          MicroModal.show('model-details-modal', {
+            disableScroll: true,
+            // MicroModal's automatic focus can select the purchase button at
+            // the bottom. Focus the title without scrolling after it is shown.
+            disableFocus: true,
+            onShow: () => {
+              smoothScroll?.stop();
+              details.querySelector('#model-details-title').focus({ preventScroll: true });
+              panel.scrollTop = 0;
+              requestAnimationFrame(() => { panel.scrollTop = 0; });
+            },
+            onClose: () => smoothScroll?.start()
+          });
+        }));
+        models.querySelectorAll('.model-image').forEach(image => image.addEventListener('load', requestFoldFit));
+        document.querySelector('.journey-usecases').addEventListener('transitionend', event => {
+          if (event.propertyName === 'grid-template-rows') requestFoldFit();
+        });
+        document.querySelectorAll('.journey-toggle').forEach(button => button.addEventListener('click', () => {
+          if (motion.matches) requestFoldFit();
+        }));
+        requestFoldFit();
       }
 
       function onMetadata() {
@@ -410,7 +1200,9 @@
       function goToProgress(progress, smooth = false) {
         if (motion.matches || failed) return;
         const bounds = scrollBounds();
-        window.scrollTo({ top: bounds.start + bounds.distance * progress, behavior: smooth ? 'smooth' : 'instant' });
+        const top = bounds.start + bounds.distance * progress;
+        if (smoothScroll) smoothScroll.scrollTo(top, { immediate: !smooth });
+        else window.scrollTo({ top, behavior: smooth ? 'smooth' : 'instant' });
       }
       document.querySelectorAll('[data-explore]').forEach(link => link.addEventListener('click', event => {
         event.preventDefault();
@@ -421,27 +1213,82 @@
       }));
       document.querySelector('.identity').addEventListener('click', event => {
         event.preventDefault();
-        window.scrollTo({ top: 0, behavior: motion.matches ? 'instant' : 'smooth' });
+        if (smoothScroll) smoothScroll.scrollTo(0);
+        else window.scrollTo({ top: 0, behavior: motion.matches ? 'instant' : 'smooth' });
       });
+      document.querySelector('[data-footer-year]').textContent = new Date().getFullYear();
+      document.querySelectorAll('[data-footer-scroll]').forEach(link => link.addEventListener('click', event => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        event.preventDefault();
+        const focusTarget = () => {
+          const heading = target.querySelector('h1, h2');
+          if (!heading) return;
+          if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+          heading.focus({ preventScroll: true });
+        };
+        if (smoothScroll) smoothScroll.scrollTo(target, { onComplete: focusTarget });
+        else { target.scrollIntoView({ behavior: motion.matches ? 'instant' : 'smooth' }); focusTarget(); }
+      }));
       const dialog = document.querySelector('#purchase-dialog');
       document.querySelectorAll('#buy, [data-buy]').forEach(button => button.addEventListener('click', () => {
         if (CONFIG.checkoutUrl) { window.location.assign(CONFIG.checkoutUrl); return; }
+        if (document.querySelector('#model-details-modal').classList.contains('is-open')) MicroModal.close('model-details-modal');
+        const model = button.dataset.model || 'Pro';
+        document.querySelector('#purchase-title').textContent = `VYON ${model}. Em breve, com você.`;
+        document.querySelector('#purchase-description').textContent = `Você escolheu o VYON ${model}. A compra online ainda não está disponível nesta página.`;
         dialog.showModal();
+        smoothScroll?.stop();
       }));
+      dialog.addEventListener('close', () => smoothScroll?.start());
       dialog.addEventListener('click', event => {
         const rect = dialog.getBoundingClientRect();
         if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) dialog.close();
       });
 
+      // Only decode the background while this fold is on screen. A manual
+      // pause persists across scrolls; reduced motion starts with the poster.
+      const energy = document.querySelector('.energy');
+      const energyVideo = document.querySelector('#energy-video');
+      const energyPlayback = document.querySelector('.energy-playback');
+      let energyVisible = false;
+      let energyPaused = motion.matches;
+      function updateEnergyPlayback() {
+        const playing = !energyVideo.paused;
+        energyPlayback.innerHTML = playing ? 'Pausar vídeo <span aria-hidden="true">Ⅱ</span>' : 'Reproduzir vídeo <span aria-hidden="true">▷</span>';
+        energyPlayback.setAttribute('aria-pressed', String(playing));
+      }
+      function syncEnergyVideo() {
+        if (energyVisible && !energyPaused && !document.hidden) energyVideo.play().catch(updateEnergyPlayback);
+        else energyVideo.pause();
+      }
+      energyVideo.addEventListener('play', updateEnergyPlayback);
+      energyVideo.addEventListener('pause', updateEnergyPlayback);
+      energyVideo.addEventListener('error', () => { energyPlayback.hidden = true; });
+      energyPlayback.addEventListener('click', () => {
+        energyPaused = !energyVideo.paused;
+        syncEnergyVideo();
+      });
+      new IntersectionObserver(entries => {
+        energyVisible = entries[0].isIntersecting;
+        energy.classList.toggle('is-in-view', energyVisible);
+        syncEnergyVideo();
+      }, { threshold: .05 }).observe(energy);
+      document.addEventListener('visibilitychange', syncEnergyVideo);
+      motion.addEventListener('change', () => { energyPaused = motion.matches; syncEnergyVideo(); });
+
       let resizeTimer;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => hasGSAP ? ScrollTrigger.refresh() : nativeUpdate(), 150);
+        resizeTimer = setTimeout(() => { requestFoldFit(); if (!hasGSAP) nativeUpdate(); }, 150);
       }, { passive: true });
       motion.addEventListener('change', () => { playhead.progress = 0; setupMotion(); });
       setupMotion();
+      setupBenefitsMotion();
+      setupJourney();
+      setupModels();
       if (video.readyState >= 1) onMetadata();
-      document.fonts.ready.then(() => { if (hasGSAP) ScrollTrigger.refresh(); });
+      document.fonts.ready.then(requestFoldFit);
       window.addEventListener('pageshow', () => { if (hasGSAP) ScrollTrigger.refresh(); else nativeUpdate(); });
     });
   </script>
