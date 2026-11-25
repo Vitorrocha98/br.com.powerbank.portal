@@ -505,8 +505,9 @@
       <div class="hero">
         <figure class="media" aria-label="Power bank preto com indicador de carga, conectado a um smartphone ao longo da demonstração.">
           <div class="media-stage">
-            <video id="product-video" muted playsinline preload="auto" disablepictureinpicture poster="raw-files/frame-inicial.png" aria-label="Demonstração do power bank controlada pela rolagem">
-              <source src="raw-files/Power_bank_charging_smartphone_20260922234940.mp4" type="video/mp4">
+            <video id="product-video" muted playsinline preload="auto" disablepictureinpicture poster="assets/hero-first-frame.webp" aria-label="Demonstração do power bank controlada pela rolagem">
+              <source src="assets/hero-scroll-mobile.mp4" type="video/mp4" media="(max-width: 1023px)">
+              <source src="assets/hero-scroll-desktop.mp4" type="video/mp4">
               Seu navegador não suporta este vídeo. O power bank é apresentado na imagem de capa.
             </video>
           </div>
@@ -717,7 +718,7 @@
       'use strict';
       // Set the real checkout URL here when the store is ready.
       const CONFIG = {
-        checkoutUrl: '', seekTolerance: 1 / 120, scrollLerp: .1,
+        checkoutUrl: '', videoFPS: 24, scrollLerp: .1,
         connectionPace: { start: .38, end: .72, lead: .12 }
       };
       const section = document.querySelector('.experience');
@@ -738,35 +739,80 @@
       let sceneContext, sceneTimeline;
       let smoothScroll;
       let seekFrame = 0, scrollFrame = 0, previousChapter = -1;
+      let videoFrame = 0, presentationTimer = 0, awaitingPresentation = false;
+      let requestedTime = 0;
+      let videoPrimed = false;
       let failed = false;
       const playhead = { progress: 0 };
       video.muted = true;
       video.pause();
 
-      // Coalesce updates while the decoder is busy, then immediately seek the
-      // latest target. An extra RAF after seeked used to cost a display frame.
+      // These MP4s contain independent frames (GOP 1). Seek only to real source
+      // frames, and keep just the newest scroll target while decoding/displaying.
+      // `currentTime` changes before pixels do: `seeked` alone must not start a
+      // new seek that can prevent the previous frame reaching the compositor.
       function scheduleSeek() {
-        if (!seekFrame && duration && !failed) seekFrame = requestAnimationFrame(seek);
+        if (!seekFrame && !awaitingPresentation && duration && !failed && !document.hidden) {
+          seekFrame = requestAnimationFrame(seek);
+        }
+      }
+      function releaseVideoFrame() {
+        if (videoFrame) video.cancelVideoFrameCallback(videoFrame);
+        videoFrame = 0;
+        clearTimeout(presentationTimer);
+        presentationTimer = 0;
+        awaitingPresentation = false;
+        scheduleSeek();
+      }
+      function onVideoFrame(now, metadata) {
+        videoFrame = 0;
+        // A callback queued before a seek may still describe the old frame.
+        if (Math.abs(metadata.mediaTime - requestedTime) > .5 / CONFIG.videoFPS) {
+          videoFrame = video.requestVideoFrameCallback(onVideoFrame);
+          return;
+        }
+        releaseVideoFrame();
       }
       function seek() {
         seekFrame = 0;
-        if (!duration || video.seeking || video.readyState < 1) return;
-        const nextTime = motion.matches ? 0 : targetTime;
-        if (Math.abs(video.currentTime - nextTime) < CONFIG.seekTolerance) return;
-        try { video.currentTime = nextTime; }
-        catch { /* A later loadeddata/progress event retries unavailable media. */ }
+        if (!duration || failed || awaitingPresentation || video.seeking || video.readyState < 2) return;
+        const lastFrame = Math.max(0, Math.ceil(duration * CONFIG.videoFPS) - 1);
+        const frame = motion.matches ? 0 : Math.max(0, Math.min(lastFrame, Math.round(targetTime * CONFIG.videoFPS)));
+        requestedTime = frame / CONFIG.videoFPS;
+        // Present the actual first video sample before any scroll input. A
+        // paused video at exactly zero may otherwise keep showing its poster.
+        if (videoPrimed && Math.abs(video.currentTime - requestedTime) < .5 / CONFIG.videoFPS) return;
+        awaitingPresentation = true;
+        try {
+          // Stay just inside the sample instead of a floating-point boundary.
+          video.currentTime = requestedTime + .001;
+          videoPrimed = true;
+          if (video.requestVideoFrameCallback) videoFrame = video.requestVideoFrameCallback(onVideoFrame);
+        } catch {
+          awaitingPresentation = false;
+          // loadeddata/progress will retry media that isn't available yet.
+        }
       }
       video.addEventListener('seeked', () => {
-        if (seekFrame) cancelAnimationFrame(seekFrame);
-        seekFrame = 0;
-        if (!failed) seek();
+        if (!awaitingPresentation) { scheduleSeek(); return; }
+        if (!video.requestVideoFrameCallback) { releaseVideoFrame(); return; }
+        // Some engines suppress callbacks for paused/background video. Avoid a
+        // permanent stall, without interrupting an in-flight network/decode seek.
+        clearTimeout(presentationTimer);
+        presentationTimer = setTimeout(releaseVideoFrame, 120);
       });
       video.addEventListener('loadeddata', () => {
-        video.removeAttribute('poster');
         scheduleSeek();
       });
       video.addEventListener('progress', scheduleSeek);
       video.addEventListener('play', () => video.pause());
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          cancelAnimationFrame(seekFrame);
+          seekFrame = 0;
+        }
+        releaseVideoFrame();
+      });
 
       function videoProgress(progress) {
         const { start, end, lead } = CONFIG.connectionPace;
@@ -898,7 +944,11 @@
           });
           trigger = ScrollTrigger.create({
             trigger: section, start: 'top top', end: 'bottom bottom',
-            animation: scrollAnimation, scrub: smoothScroll ? true : .35, invalidateOnRefresh: true
+            animation: scrollAnimation, scrub: smoothScroll ? true : .35, invalidateOnRefresh: true,
+            // Refresh temporarily rewinds the tween, then restores it with
+            // callbacks suppressed. Restore the media/text target too, so a
+            // late font, metadata or viewport refresh can't leave frame zero.
+            onRefresh: self => renderProgress(self.progress)
           });
           ScrollTrigger.refresh();
         } else {
@@ -1189,13 +1239,15 @@
       }
       video.addEventListener('loadedmetadata', onMetadata);
       function onVideoError() {
+        if (failed) return;
         failed = true;
-        video.poster = 'raw-files/frame-inicial.png';
+        releaseVideoFrame();
+        video.poster = 'assets/hero-first-frame.webp';
         status.textContent = 'A demonstração está indisponível. Você ainda pode conhecer o produto pela imagem.';
         setupMotion();
       }
       video.addEventListener('error', onVideoError);
-      video.querySelector('source').addEventListener('error', onVideoError);
+      video.querySelector('source:last-of-type').addEventListener('error', onVideoError);
 
       function goToProgress(progress, smooth = false) {
         if (motion.matches || failed) return;
@@ -1288,6 +1340,8 @@
       setupJourney();
       setupModels();
       if (video.readyState >= 1) onMetadata();
+      // A local source can fail before deferred scripts finish loading.
+      if (video.error || video.networkState === video.NETWORK_NO_SOURCE) onVideoError();
       document.fonts.ready.then(requestFoldFit);
       window.addEventListener('pageshow', () => { if (hasGSAP) ScrollTrigger.refresh(); else nativeUpdate(); });
     });
